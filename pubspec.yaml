@@ -1,0 +1,27 @@
+name: sah
+description: SoftAtHome sysbus CLI for KPN / Livebox-style home gateways.
+version: 0.1.1
+publish_to: none
+repository: https://github.com/jeroen-meijer/sah_cli
+issue_tracker: https://github.com/jeroen-meijer/sah_cli/issues
+homepage: https://github.com/jeroen-meijer/sah_cli
+topics: [cli, network, networking, api, api-client]
+
+environment:
+  sdk: ^3.13.0
+
+executables:
+  sah: sah
+
+dependencies:
+  args: ^2.7.0
+  chalkdart: ^2.4.0
+  cli_table: ^1.0.2
+  http: ^1.4.0
+  io: ^1.0.5
+  meta: ^1.16.0
+  path: ^1.9.1
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.0

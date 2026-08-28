@@ -1,0 +1,12 @@
+# https://dart.dev/guides/libraries/private-files
+.dart_tool/
+.packages
+build/
+pubspec.lock
+.idea/
+*.iml
+.DS_Store
+
+# Accidental session files (normal path: ~/.config/sah/)
+session.json
+.config/

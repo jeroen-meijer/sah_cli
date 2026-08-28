@@ -1,0 +1,2043 @@
+{
+  "service_method": {
+    "IPPingDiagnostics / execDiagnostic": [
+      "Login.yaml",
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/Login.yaml"
+    ],
+    "NeMo.Intf.brguest / getMIBs": [
+      "ensemble/apps/kpnApp/screens/Home.yaml"
+    ],
+    "NeMo.Intf.lan / getMIBs": [
+      "ensemble/apps/kpnApp/screens/Home.yaml"
+    ],
+    "vap2g0priv / POST": [
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "vap5g0priv / POST": [
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ]
+  },
+  "invokeAPI": {
+    "addIPv4Rules": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "addIPv6OpenPort": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "addIntf": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "addStaticLeases": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "changePassword": [
+      "Login.yaml",
+      "ensemble/apps/kpnApp/screens/Login.yaml"
+    ],
+    "clearPhoneLine": [
+      "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+    ],
+    "deleteCustomRule": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "deleteDMZ": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "deleteDeviceSchedule": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml",
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "deleteDynDnsHost": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "deleteIPv4Rules": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "deleteIPv6OpenPorts": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "deleteStaticLeases": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "editIPv4Rules": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "editIPv6OpenPort": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "findSSW": [
+      "Login.yaml",
+      "ensemble/apps/kpnApp/screens/Login.yaml"
+    ],
+    "get2gRadio": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "get2gScanResult": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "get2gSpectrum": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "get5gRadio": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "get5gScanResult": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "get5gSpectrum": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "getActiveDevices": [
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml",
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getAllDevices": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getCallHistory": [
+      "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+    ],
+    "getCurrentUser": [
+      "ensemble/apps/kpnApp/screens/Landing.yaml"
+    ],
+    "getCustomRules": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getCustomRulesIpv6Out": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getDHCPIPv4Authorative": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getDHCPLeases": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getDMZ": [
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getDeviceDetails": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml",
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getDeviceInfo": [
+      "Login.yaml",
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/Landing.yaml",
+      "ensemble/apps/kpnApp/screens/Login.yaml"
+    ],
+    "getDeviceInfoHGW": [
+      "ensemble/apps/kpnApp/screens/Home.yaml"
+    ],
+    "getDeviceMode": [
+      "ensemble/apps/kpnApp/screens/Landing.yaml"
+    ],
+    "getDeviceSchedule": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml",
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getDeviceSelf": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getDevices": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getDevicesSchedule": [
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml",
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getDhcpHostName": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getDhcpSettings": [
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml",
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "getDynDnsHosts": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getExtenders": [
+      "ensemble/apps/kpnApp/screens/Home.yaml"
+    ],
+    "getFirewallConnectionTrackingSIP": [
+      "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+    ],
+    "getFirewallLevel": [
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getGlobalIPV6": [
+      "ensemble/apps/kpnApp/screens/Home.yaml"
+    ],
+    "getGuestDHCPLeases": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getGuestDhcpSettings": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getGuestWiFiInfo": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "getGuestWiFiStatus": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "getGuestWiFiTimer": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "getHybridAccessStatus": [
+      "ensemble/apps/kpnApp/screens/Home.yaml"
+    ],
+    "getIPTV": [
+      "ensemble/apps/kpnApp/screens/Home.yaml"
+    ],
+    "getIPv4Rules": [
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getIPv6OpenPorts": [
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getInactiveDevices": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getInactiveDevicesList": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getIncomingLineAssignment": [
+      "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+    ],
+    "getInternetConnection": [
+      "ensemble/apps/kpnApp/screens/Home.yaml"
+    ],
+    "getIntfs": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getIpv6Status": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getLatestVersion": [
+      "ensemble/apps/kpnApp/screens/Home.yaml"
+    ],
+    "getMacFiltering": [
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getOutgoingLineAssignment": [
+      "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+    ],
+    "getPasswordRecoveryEvents": [
+      "Login.yaml",
+      "ensemble/apps/kpnApp/screens/Login.yaml"
+    ],
+    "getPhone": [
+      "ensemble/apps/kpnApp/screens/Home.yaml"
+    ],
+    "getPhoneLines": [
+      "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+    ],
+    "getPrivWiFi": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "getRespondToPing": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getRole": [
+      "Login.yaml",
+      "ensemble/apps/kpnApp/screens/Login.yaml"
+    ],
+    "getRootLEDs": [
+      "Login.yaml",
+      "ensemble/apps/kpnApp/screens/Login.yaml"
+    ],
+    "getSSWs": [
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getSTBs": [
+      "ensemble/apps/kpnApp/screens/Home.yaml"
+    ],
+    "getSTPStatus": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getSchedule": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "getSsw2gRadio": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getSsw5gRadio": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getSswLatestVersion": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getSswLed": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getStaticLeases": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml",
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getTime": [
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml",
+      "ensemble/apps/kpnApp/screens/Security.yaml",
+      "ensemble/apps/kpnApp/screens/Telefoon.yaml",
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "getTopology": [
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getTopologyGuest": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getTrunkNames": [
+      "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+    ],
+    "getUpnp": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getUpnpRules": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getUserSettings": [
+      "Login.yaml",
+      "ensemble/apps/kpnApp/screens/Login.yaml"
+    ],
+    "getUserSettingsPreLogin": [
+      "Login.yaml",
+      "ensemble/apps/kpnApp/screens/Login.yaml"
+    ],
+    "getV10Leds": [
+      "Login.yaml",
+      "ensemble/apps/kpnApp/screens/Login.yaml"
+    ],
+    "getWANInfo": [
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/Landing.yaml",
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getWLanManager": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "getWWAN": [
+      "ensemble/apps/kpnApp/screens/Home.yaml"
+    ],
+    "getWanPortParams": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "getWifiDevices": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "getWifiStatus": [
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml",
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "listMST": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "login": [
+      "Login.yaml",
+      "ensemble/apps/kpnApp/screens/Login.yaml"
+    ],
+    "releaseContext": [
+      "ensemble/apps/kpnApp/screens/Logout.yaml"
+    ],
+    "removeDevice": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "removeIntf": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "setCustomRule": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "setDMZ": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "setDeviceName": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "setDeviceSchedule": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml",
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "setDeviceType": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "setDhcpDomainName": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "setDhcpHostName": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "setDhcpIPv4Settings": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "setDuplexMode": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "setDynDnsHost": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "setExtra2gWiFi": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "setExtra2gWiFiVisibility": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "setExtra5gWiFi": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "setExtra5gWiFiVisibility": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "setFirewallConnectionTrackingSIP": [
+      "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+    ],
+    "setFirewallIPv6Level": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "setFirewallLevel": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "setGlobalEnable": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "setGuestDhcpSettings": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "setGuestWiFi": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "setGuestWiFiBandwidth": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "setGuestWiFiStatus": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "setGuestWiFiVisibility": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "setIpv6Status": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "setMacFiltering": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "setPhoneLine": [
+      "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+    ],
+    "setPhoneLineName": [
+      "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+    ],
+    "setPortSpeed": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "setPrivWiFi": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "setPrivWiFiVisibility": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "setRespondToPing": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "setSTPStatus": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "setStaticLease": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "setUpnp": [
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "setWLanManager": [
+      "ensemble/apps/kpnApp/screens/Home.yaml",
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "setWiFiWPS": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "setWifiScheduleStatus": [
+      "ensemble/apps/kpnApp/screens/WiFi.yaml"
+    ],
+    "startPasswordRecovery": [
+      "Login.yaml",
+      "ensemble/apps/kpnApp/screens/Login.yaml"
+    ],
+    "startPasswordRecoveryEvents": [
+      "Login.yaml",
+      "ensemble/apps/kpnApp/screens/Login.yaml"
+    ],
+    "testPhones": [
+      "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+    ],
+    "toggleDeviceSchedule": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml",
+      "ensemble/apps/kpnApp/screens/Security.yaml"
+    ],
+    "unPairExtender": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ],
+    "upgradeExtender": [
+      "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+    ]
+  },
+  "named_apis": {
+    "login": {
+      "service": "sah.Device.Information",
+      "method": "createContext",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml"
+      ]
+    },
+    "startPasswordRecovery": {
+      "service": "PasswordRecovery",
+      "method": "start",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml"
+      ]
+    },
+    "startPasswordRecoveryEvents": {
+      "service": "eventmanager",
+      "method": "open_channel",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml"
+      ]
+    },
+    "getPasswordRecoveryEvents": {
+      "service": "eventmanager",
+      "method": "get_events",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml"
+      ]
+    },
+    "resetPassword": {
+      "service": "NMC.GroupFunction",
+      "method": "ResetAdminPassword",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml"
+      ]
+    },
+    "findSSW": {
+      "service": "NMC.Devices",
+      "method": "findSSW",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml"
+      ]
+    },
+    "getSSWInfo": {
+      "service": "NMC.Devices",
+      "method": "getDevice",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml"
+      ]
+    },
+    "getSSWInfoErrors": {
+      "service": "NMC.Devices",
+      "method": "getDevice",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml"
+      ]
+    },
+    "getRootLEDs": {
+      "service": "LEDs",
+      "method": "getRootLEDs",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml"
+      ]
+    },
+    "getV10Leds": {
+      "service": "LEDs.LED",
+      "method": "get",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml"
+      ]
+    },
+    "getUserSettingsPreLogin": {
+      "service": "UserManagement.User.admin",
+      "method": "get",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml"
+      ]
+    },
+    "getUserSettings": {
+      "service": "UserManagement.User.admin",
+      "method": "get",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml"
+      ]
+    },
+    "changePassword": {
+      "service": "UserManagement",
+      "method": "changePasswordSec",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml"
+      ]
+    },
+    "startPing": {
+      "service": "IPPingDiagnostics",
+      "method": "execDiagnostic",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "runUpstreamSpeedTest": {
+      "service": "SpeedTest.Diagnostics.Upload",
+      "method": "runDiagnostics",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "runDownstreamSpeedTest": {
+      "service": "SpeedTest.Diagnostics.Download",
+      "method": "runDiagnostics",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getRole": {
+      "service": "NMC.Role",
+      "method": "get",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml"
+      ]
+    },
+    "getMqttClient": {
+      "service": "MQTT.Client.usp-client",
+      "method": "get",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml"
+      ]
+    },
+    "getDeviceInfo": {
+      "service": "DeviceInfo",
+      "method": "get",
+      "files": [
+        "Login.yaml",
+        "ensemble/apps/kpnApp/screens/Landing.yaml",
+        "ensemble/apps/kpnApp/screens/WiFi.yaml",
+        "ensemble/apps/kpnApp/screens/Login.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getCurrentUser": {
+      "service": "HTTPService",
+      "method": "getCurrentUser",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Landing.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getDeviceMode": {
+      "service": "MSS",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Landing.yaml"
+      ]
+    },
+    "getWANInfo": {
+      "service": "NMC",
+      "method": "getWANStatus",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Landing.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml",
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getMSSConfig": {
+      "service": "MSS.Config",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Landing.yaml"
+      ]
+    },
+    "releaseContext": {
+      "service": "sah.Device.Information",
+      "method": "releaseContext",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Logout.yaml"
+      ]
+    },
+    "setFirewallPolicy": {
+      "service": "Firewall",
+      "method": "setChainPolicy",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "getFirewallPolicy": {
+      "service": "Firewall",
+      "method": "getChainPolicy",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "setDeviceName": {
+      "service": "Devices.Device.${mac}",
+      "method": "setName",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml",
+        "ensemble/apps/kpnApp/screens/WiFi.yaml",
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setDeviceType": {
+      "service": "Devices.Device.${mac}",
+      "method": "setType",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml",
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getActiveDevices": {
+      "service": "Devices",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml",
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getDevicesSchedule": {
+      "service": "Scheduler",
+      "method": "getCompleteSchedules",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml",
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getDeviceSchedule": {
+      "service": "Scheduler",
+      "method": "getSchedule",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml",
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "toggleDeviceSchedule": {
+      "service": "Scheduler",
+      "method": "overrideSchedule",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml",
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setDeviceSchedule": {
+      "service": "Scheduler",
+      "method": "addSchedule",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml",
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getFirewallLevel": {
+      "service": "Firewall",
+      "method": "getFirewallLevel",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "setFirewallLevel": {
+      "service": "Firewall",
+      "method": "setFirewallLevel",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "setFirewallIPv6Level": {
+      "service": "Firewall",
+      "method": "setFirewallIPv6Level",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "getCustomRules": {
+      "service": "Firewall",
+      "method": "getCustomRule",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "getCustomRulesIpv6Out": {
+      "service": "Firewall",
+      "method": "getCustomRule",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "getDeviceDetails": {
+      "service": "Devices.Device.${mac}",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml",
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "deleteCustomRule": {
+      "service": "Firewall",
+      "method": "deleteCustomRule",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "setCustomRule": {
+      "service": "Firewall",
+      "method": "setCustomRule",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "getRespondToPing": {
+      "service": "Firewall",
+      "method": "getRespondToPing",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "getIntfs": {
+      "service": "NeMo.Intf.data",
+      "method": "getIntfs",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "setRespondToPing": {
+      "service": "Firewall",
+      "method": "setRespondToPing",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "getDevices": {
+      "service": "Devices",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml",
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "getWifiDevices": {
+      "service": "Devices",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "getStaticLeases": {
+      "service": "DHCPv4.Server.Pool.default",
+      "method": "getStaticLeases",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml",
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "addStaticLease": {
+      "service": "DHCPv4.Server.Pool.default",
+      "method": "addStaticLease",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "addIPv6OpenPort": {
+      "service": "Firewall",
+      "method": "setPinhole",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "editIPv6OpenPort": {
+      "service": "Firewall",
+      "method": "setPinhole",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "toggleIPv6OpenPort": {
+      "service": "Firewall",
+      "method": "setPinhole",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "getIPv6OpenPorts": {
+      "service": "Firewall",
+      "method": "getPinhole",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "deleteIPv6OpenPorts": {
+      "service": "Firewall",
+      "method": "deletePinhole",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "getIPv4Rules": {
+      "service": "Firewall",
+      "method": "getPortForwarding",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getUpnpRules": {
+      "service": "Firewall",
+      "method": "getPortForwarding",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "editIPv4Rules": {
+      "service": "Firewall",
+      "method": "setPortForwarding",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "deleteIPv4Rules": {
+      "service": "Firewall",
+      "method": "deletePortForwarding",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "addIPv4Rules": {
+      "service": "Firewall",
+      "method": "setPortForwarding",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "getDMZ": {
+      "service": "Firewall",
+      "method": "getDMZ",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "deleteDMZ": {
+      "service": "Firewall",
+      "method": "deleteDMZ",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "setDMZ": {
+      "service": "Firewall",
+      "method": "setDMZ",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "getUpnp": {
+      "service": "Firewall",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "setUpnp": {
+      "service": "Firewall",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "getMacFiltering": {
+      "service": "NeMo.Intf.lan",
+      "method": "getMIBs",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "setMacFiltering": {
+      "service": "NeMo.Intf.lan",
+      "method": "setWLANConfig",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml"
+      ]
+    },
+    "deleteDeviceSchedule": {
+      "service": "Scheduler",
+      "method": "removeSchedules",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml",
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getTime": {
+      "service": "Time",
+      "method": "getTime",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Security.yaml",
+        "ensemble/apps/kpnApp/screens/WiFi.yaml",
+        "ensemble/apps/kpnApp/screens/Telefoon.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml",
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getPrivWiFi": {
+      "service": "NeMo.Intf.lan",
+      "method": "getMIBs",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "setPrivWiFiVisibility": {
+      "service": "NeMo.Intf.lan",
+      "method": "setWLANConfig",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setPrivWiFi": {
+      "service": "NeMo.Intf.lan",
+      "method": "setWLANConfig",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setExtra2gWiFiStatus": {
+      "service": "NeMo.Intf.lan",
+      "method": "setWLANConfig",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setExtra2gWiFiVisibility": {
+      "service": "NeMo.Intf.lan",
+      "method": "setWLANConfig",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setExtra2gWiFi": {
+      "service": "NeMo.Intf.lan",
+      "method": "setWLANConfig",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setExtra5gWiFiStatus": {
+      "service": "NeMo.Intf.lan",
+      "method": "setWLANConfig",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setWiFiWPS": {
+      "service": "${service}",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setExtra5gWiFiVisibility": {
+      "service": "NeMo.Intf.lan",
+      "method": "setWLANConfig",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setExtra5gWiFi": {
+      "service": "NeMo.Intf.lan",
+      "method": "setWLANConfig",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "getWifiStatus": {
+      "service": "NMC.Wifi",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml",
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setLocalWifiStatus": {
+      "service": "NMC.Wifi",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "setOverAllWifiStatus": {
+      "service": "NMC.Wifi",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "setWifiStatus": {
+      "service": "NMC.Wifi",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml",
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setWifiStatus2g": {
+      "service": "NeMo.Intf.rad2g0",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "setWifiStatus5g": {
+      "service": "NeMo.Intf.rad5g0",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "get2gRadio": {
+      "service": "NeMo.Intf.rad2g0",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "get5gRadio": {
+      "service": "NeMo.Intf.rad5g0",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "set2gRadioAutoChannel": {
+      "service": "NeMo.Intf.rad2g0",
+      "method": "setWLANConfig",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "set2gRadioStaticChannel": {
+      "service": "NeMo.Intf.rad2g0",
+      "method": "setWLANConfig",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "set5gRadioAutoChannel": {
+      "service": "NeMo.Intf.rad5g0",
+      "method": "setWLANConfig",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "set5gRadioStaticChannel": {
+      "service": "NeMo.Intf.rad5g0",
+      "method": "setWLANConfig",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "getGuestWiFiStatus": {
+      "service": "NMC.Guest",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "setGuestWiFiBandwidth": {
+      "service": "NMC.Guest",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setGuestWiFiTimeLimit": {
+      "service": "NMC.WlanTimer",
+      "method": "setActivationTimer",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setGuestWiFiStatus": {
+      "service": "NeMo.Intf.lan",
+      "method": "setWLANConfig",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setGuestWiFiVisibility": {
+      "service": "NeMo.Intf.lan",
+      "method": "setWLANConfig",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setGuestWiFi": {
+      "service": "NeMo.Intf.lan",
+      "method": "setWLANConfig",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "getGuestWiFiInfo": {
+      "service": "NeMo.Intf.brguest",
+      "method": "getMIBs",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "setGuestWiFiTimer": {
+      "service": "NMC.WlanTimer",
+      "method": "setActivationTimer",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "disabledGuestWiFiTimer": {
+      "service": "NMC.WlanTimer",
+      "method": "disableActivationTimer",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "getGuestWiFiTimer": {
+      "service": "NMC.WlanTimer",
+      "method": "getActivationTimer",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "getLanInfo": {
+      "service": "NeMo.Intf.lan",
+      "method": "getMIBs",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "getExtra2gWifi": {
+      "service": "NeMo.Intf.vap2g0ext",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "getExtra5gWifi": {
+      "service": "NeMo.Intf.vap5g0ext",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setSeparateWifi": {
+      "service": "NMC.Wifi",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "get2gSpectrum": {
+      "service": "NeMo.Intf.rad2g0",
+      "method": "getSpectrumInfo",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "get5gSpectrum": {
+      "service": "NeMo.Intf.rad5g0",
+      "method": "getSpectrumInfo",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "get2gScanResult": {
+      "service": "NeMo.Intf.rad2g0",
+      "method": "getScanResults",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "get5gScanResult": {
+      "service": "NeMo.Intf.rad5g0",
+      "method": "getScanResults",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "getWifiSignal": {
+      "service": "NeMo.Intf.lan",
+      "method": "getMIBs",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "getPairingEventChannel": {
+      "service": null,
+      "method": null,
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "getTopology": {
+      "service": "Devices.Device.HGW",
+      "method": "topology",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml",
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getSchedule": {
+      "service": "Scheduler",
+      "method": "getCompleteSchedules",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setWifiScheduleStatus": {
+      "service": "Scheduler",
+      "method": "enableSchedule",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "addSchedule": {
+      "service": "Scheduler",
+      "method": "addSchedule",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setLedBrightness": {
+      "service": "LEDs.LED.WifiGreen",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "getWLanManager": {
+      "service": "WLanManager.AccessPoint",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setWLanManager": {
+      "service": "NeMo.Intf.${service}",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml",
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getSswSteeringMaster": {
+      "service": "SSW.Steering.MasterConfig",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setSswSteeringMaster": {
+      "service": "SSW.Steering.MasterConfig",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "setOperationalDataTransmitRates": {
+      "service": "NeMo.Intf.rad2g0",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/WiFi.yaml"
+      ]
+    },
+    "getPhoneLines": {
+      "service": "VoiceService.VoiceApplication",
+      "method": "listTrunks",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+      ]
+    },
+    "togglePhoneStatus": {
+      "service": "VoiceService.VoiceApplication",
+      "method": "setTrunk",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+      ]
+    },
+    "getCallHistory": {
+      "service": "VoiceService.VoiceApplication",
+      "method": "getCallList",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+      ]
+    },
+    "testPhones": {
+      "service": "VoiceService.VoiceApplication",
+      "method": "ring",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+      ]
+    },
+    "clearPhoneLine": {
+      "service": "VoiceService.VoiceApplication",
+      "method": "setTrunk",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+      ]
+    },
+    "setPhoneLineName": {
+      "service": "VoiceService.VoiceApplication.VoiceProfile.SIP-Trunk${lineNumber}",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+      ]
+    },
+    "setPhoneLine": {
+      "service": "VoiceService.VoiceApplication",
+      "method": "setTrunk",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+      ]
+    },
+    "getIncomingLineAssignment": {
+      "service": "VoiceService.VoiceApplication",
+      "method": "listGroups",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+      ]
+    },
+    "setIncomingLineAssignment": {
+      "service": "VoiceService.VoiceApplication",
+      "method": "setGroups",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+      ]
+    },
+    "getOutgoingLineAssignment": {
+      "service": "VoiceService.VoiceApplication",
+      "method": "listHandsets",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+      ]
+    },
+    "setOutingLineAssignment": {
+      "service": "VoiceService.VoiceApplication",
+      "method": "setHandset",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+      ]
+    },
+    "getTrunkNames": {
+      "service": "VoiceService.VoiceApplication.VoiceProfile",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+      ]
+    },
+    "getFirewallConnectionTrackingSIP": {
+      "service": "Firewall.ConnectionTracking.SIP",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+      ]
+    },
+    "setFirewallConnectionTrackingSIP": {
+      "service": "Firewall.ConnectionTracking.SIP",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Telefoon.yaml"
+      ]
+    },
+    "getSSWs": {
+      "service": "Devices",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Home.yaml",
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getDeviceInfoHGW": {
+      "service": "Devices.Device.HGW",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getExtenderWifiStatus": {
+      "service": "Devices.Device.${mac}.SSW",
+      "method": "execAPI",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getExtenderPrivWiFi": {
+      "service": "Devices.Device.${mac}.SSW",
+      "method": "execAPI",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getExtenderGuestWiFiInfo": {
+      "service": "Devices.Device.${mac}.SSW",
+      "method": "execAPI",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getInternetConnection": {
+      "service": "NeMo.Intf.data",
+      "method": "getMIBs",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getWWAN": {
+      "service": "NeMo.Intf.wwan",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getIPTV": {
+      "service": "NeMo.Intf.iptv",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getSTBs": {
+      "service": "Devices",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getPhone": {
+      "service": "VoiceService.VoiceApplication",
+      "method": "listTrunks",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getLatestVersion": {
+      "service": "WebuiupgradeService",
+      "method": "getLatestVersion",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getExtenders": {
+      "service": "Devices",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getIptvIp": {
+      "service": "NeMo.Intf.iptv",
+      "method": "luckyAddrAddress",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getGlobalIPV6": {
+      "service": "NeMo.Intf.data",
+      "method": "luckyAddrAddress",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getHybridAccessStatus": {
+      "service": "Tessares",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Home.yaml"
+      ]
+    },
+    "getDhcpSettings": {
+      "service": "DHCPv4.Server",
+      "method": "getDHCPServerPool",
+      "files": [
+        "ensemble/apps/kpnApp/screens/Home.yaml",
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getDeviceSelf": {
+      "service": "Devices",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getInactiveDevicesList": {
+      "service": "Devices",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getInactiveDevices": {
+      "service": "Devices",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getAllDevices": {
+      "service": "Devices",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getPairedDevices": {
+      "service": "Devices",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getInactivePairedDevices": {
+      "service": "Devices",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getDHCPIPv4Authorative": {
+      "service": "NetMaster.LAN.default.Bridge.lan.DHCPv4",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setDhcpIPv4Settings": {
+      "service": "NetMaster.LAN.default.Bridge.lan",
+      "method": "setIPv4",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getDhcpHostName": {
+      "service": "NetMaster.LAN.default.Bridge.lan.HostName",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setDhcpHostName": {
+      "service": "NetMaster.LAN.default.Bridge.lan",
+      "method": "setHostName",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setDhcpDomainName": {
+      "service": "NetMaster.LAN.default.Bridge.lan",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getGuestDhcpSettings": {
+      "service": "DHCPv4.Server",
+      "method": "getDHCPServerPool",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setGuestDhcpSettings": {
+      "service": "NetMaster.LAN.default.Bridge.guest",
+      "method": "setIPv4",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setDhcpDnsServer": {
+      "service": "NetMaster.LAN.default.Bridge.lan",
+      "method": "setIPv4",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getDnsRoutes": {
+      "service": "DNS.Server.Route",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getDnsMode": {
+      "service": "DNS",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "toggleInterface": {
+      "service": "NeMo.Intf.${interface}",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setGuestWifiStatus": {
+      "service": "NMC.Guest",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getDynDnsHosts": {
+      "service": "DynDNS",
+      "method": "getHosts",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setDynDnsHost": {
+      "service": "DynDNS",
+      "method": "addHost",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setGlobalEnable": {
+      "service": "DynDNS",
+      "method": "setGlobalEnable",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "deleteDynDnsHost": {
+      "service": "DynDNS",
+      "method": "delHost",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getDHCPLeases": {
+      "service": "DHCPv4.Server.Pool.default",
+      "method": "getLeases",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getGuestDHCPLeases": {
+      "service": "DHCPv4.Server.Pool.guest",
+      "method": "getLeases",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "addStaticLeases": {
+      "service": "DHCPv4.Server.Pool.default",
+      "method": "addStaticLease",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setStaticLease": {
+      "service": "DHCPv4.Server.Pool.default",
+      "method": "setStaticLease",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "deleteStaticLeases": {
+      "service": "DHCPv4.Server.Pool.default",
+      "method": "deleteStaticLease",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getIpv6Status": {
+      "service": "NetMaster",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setIpv6Status": {
+      "service": "NetMaster",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setIpv6PrefixDelegation": {
+      "service": "NetMaster.LAN.default.Bridge.lan",
+      "method": "setIPv6Configuration",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setLanIpv6PrefixDelegationLength": {
+      "service": "NetMaster.LAN.default.Bridge.lan.IPv6.lan.DHCPv6",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setGuestIpv6PrefixDelegationLength": {
+      "service": "NetMaster.LAN.default.Bridge.guest.IPv6.guest.DHCPv6",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "removeDevice": {
+      "service": "Devices",
+      "method": "destroyDevice",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "unPairExtender": {
+      "service": "SAHPairing",
+      "method": "unpair",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getAllPortParams": {
+      "service": "NeMo.Intf.lan",
+      "method": "getMIBs",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getPort1Params": {
+      "service": "NeMo.Intf.ETH0",
+      "method": "getMIBs",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getPort1Usage": {
+      "service": "NeMo.Intf.ETH0",
+      "method": "getNetDevStats",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getPort2Params": {
+      "service": "NeMo.Intf.ETH1",
+      "method": "getMIBs",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getPort2Usage": {
+      "service": "NeMo.Intf.ETH1",
+      "method": "getNetDevStats",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getPort3Params": {
+      "service": "NeMo.Intf.ETH2",
+      "method": "getMIBs",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getPort3Usage": {
+      "service": "NeMo.Intf.ETH2",
+      "method": "getNetDevStats",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getPort4Params": {
+      "service": "NeMo.Intf.ETH3",
+      "method": "getMIBs",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getPort4Usage": {
+      "service": "NeMo.Intf.ETH3",
+      "method": "getNetDevStats",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setSTPStatus": {
+      "service": "NeMo.Intf.bridge",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getSTPStatus": {
+      "service": "NeMo.Intf.bridge",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getSswLatestVersion": {
+      "service": "Devices.Device.${mac}.SSW",
+      "method": "execAPI",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "upgradeExtender": {
+      "service": "Devices.Device.${mac}.SSW",
+      "method": "execAPI",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getSswLed": {
+      "service": "Devices.Device.${mac}.SSW",
+      "method": "execAPI",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setSswLed": {
+      "service": "Devices.Device.${mac}.SSW",
+      "method": "execAPI",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getSsw2gRadio": {
+      "service": "Devices.Device.${mac}.SSW",
+      "method": "execAPI",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getSsw5gRadio": {
+      "service": "Devices.Device.${mac}.SSW",
+      "method": "execAPI",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getTopologyGuest": {
+      "service": "Devices.Device.guest",
+      "method": "topology",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setDuplexMode": {
+      "service": "NeMo.Intf.${port}",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setPortSpeed": {
+      "service": "NeMo.Intf.${port}",
+      "method": "set",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "removeIntf": {
+      "service": "NetMaster.LAN.default.Bridge.${intf}",
+      "method": "removeIntf",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "addIntf": {
+      "service": "NetMaster.LAN.default.Bridge.${intf}",
+      "method": "addIntf",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setSsw2gRadioAutoChannel": {
+      "service": "Devices.Device.${mac}.SSW",
+      "method": "execAPI",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setSsw2gRadioStaticChannel": {
+      "service": "Devices.Device.${mac}.SSW",
+      "method": "execAPI",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setSsw5gRadioAutoChannel": {
+      "service": "Devices.Device.${mac}.SSW",
+      "method": "execAPI",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setSsw5gRadioStaticChannel": {
+      "service": "Devices.Device.${mac}.SSW",
+      "method": "execAPI",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "getWanPortParams": {
+      "service": "NeMo.Intf.${ethNum}",
+      "method": "get",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    },
+    "setSswOperationalDataTransmitRates": {
+      "service": "Devices.Device.${mac}.SSW",
+      "method": "execAPI",
+      "files": [
+        "ensemble/apps/kpnApp/screens/LokaalNetwerk.yaml"
+      ]
+    }
+  }
+}
