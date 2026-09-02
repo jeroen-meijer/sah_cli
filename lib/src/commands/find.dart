@@ -4,8 +4,10 @@ import 'package:sah/src/device_query.dart';
 import 'package:sah/src/output.dart';
 
 /// Search hosts by name / MAC / IP substring.
-class FindCommand() extends Command<int> with SahCommandContext {
+class FindCommand() extends Command<int>
+    with SahCommandContext, TableCommandOptions {
   this {
+    addTableOptions();
     argParser.addFlag(
       'active',
       abbr: 'a',
@@ -40,7 +42,7 @@ class FindCommand() extends Command<int> with SahCommandContext {
             );
       final all = SahOutput.flattenDevices(result['status'] ?? result);
       final matched = all.where(query.matches).toList();
-      out.emit(matched, () => out.devices(matched));
+      out.devices(matched);
       return matched.isEmpty ? 1 : 0;
     });
   }

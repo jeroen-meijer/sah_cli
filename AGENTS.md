@@ -13,15 +13,19 @@ Run with `./run.sh <args>` (compiles to `build/sah` when sources change). API in
 - Do not mutate the live gateway (DHCP reserve/unreserve, rename, Wi-Fi toggles, firewall, reboot, etc.) unless the user asks and confirms. Prefer `--dry-run` on mutating commands.
 - Read-only commands (`login`, `info`, `wan`, `devices`, `find`, `topology`, `dhcp leases`, `dhcp static`, `ports`, `wifi`, `firewall`, `speedtest`, `call` for gets) are fine on the LAN when debugging.
 - Default gateway host is `192.168.2.254` (`SahConfig.defaultHost`, KPN default). Override with `-H` / `--host`.
-- Session tokens: `~/.config/sah/session.json` (`contextId` + cookie). Passwords are not stored; use `--password` or `SAH_PASSWORD` at login only.
+- Session tokens: `~/.config/sah/session.json` (`contextId` + cookie).
+- Password (for auto-relogin): `~/.config/sah/credentials.json` mode `0600`, written by `login` unless `--no-store-password`. Override with `SAH_PASSWORD`. `logout` clears both.
 
 ## Auth / session
 
 ```bash
-./run.sh login --password '…'          # or SAH_PASSWORD=…
-./run.sh logout
+./run.sh login --password '…'          # or SAH_PASSWORD=…; stores session + credentials
+./run.sh login --password '…' --no-store-password
+./run.sh logout                        # clears session.json and credentials.json
 ./run.sh --context '…' --cookie 'prefix/sessid=…' devices
 ```
+
+Authenticated calls try the saved session first. On SoftAtHome `Permission denied` (expired session) or missing session, `SahClient` re-logins with the stored password, saves the new session, and retries once. Wrong password surfaces as `error: incorrect password`.
 
 ## Example: find MacBook and reserve its IP
 
@@ -58,14 +62,15 @@ SoftAtHome call for reserve: `DHCPv4.Server.Pool.default` / `addStaticLease` wit
 | `device rename <query> <newName> [--apply]` | `Devices.Device.<key>:setName` | Default dry-run |
 | `call <svc> <method> [json]` | arbitrary | Escape hatch |
 
-Global flags: `-H/--host`, `-c/--context`, `--cookie`, `--json`, `-v/--verbose`.
+Global flags: `-H/--host`, `-c/--context`, `--cookie`, `--json`, `-v/--verbose`, `-q/--quiet`, `--no-color` (also respects `NO_COLOR`).
+Table commands (`devices`, `find`, `dhcp leases|static`, `ports`) also take `--sort-by` / `--fields` (column ids match table headers; prefix `-` on a sort key for descending; applies to `--json` too), and `--no-truncate` (do not shrink/drop columns to fit the terminal).
 
 ## Layout
 
 ```
 bin/sah.dart
 lib/sah.dart
-lib/src/api/          # SahClient, SahSession, SahException
+lib/src/api/          # SahClient, SahSession, SahCredentials, SahException
 lib/src/commands/
 lib/src/config.dart
 lib/src/output.dart

@@ -23,7 +23,7 @@ Some commands change gateway settings: DHCP reserve/unreserve, device rename, an
 ## Requirements
 
 - Dart SDK ^3.13 ([dart.dev/get-dart](https://dart.dev/get-dart))
-- Your gateway admin password (for `login`; not stored on disk)
+- Your gateway admin password (for `login`; stored in `~/.config/sah/credentials.json` by default for auto-relogin)
 - A machine on the same LAN as the gateway
 
 ## Install
@@ -56,7 +56,7 @@ Ensure `~/.pub-cache/bin` is on your `PATH`.
 ./run.sh speedtest
 ```
 
-Default gateway host is `192.168.2.254` (common on KPN boxes). Override with `-H` / `--host`. Session lives in `~/.config/sah/session.json` (password is not stored).
+Default gateway host is `192.168.2.254` (common on KPN boxes). Override with `-H` / `--host`. Session lives in `~/.config/sah/session.json`. Password is stored in `~/.config/sah/credentials.json` (mode `0600`) on login unless you pass `--no-store-password`. Expired sessions re-login automatically when credentials are present. `logout` clears both files.
 
 ## Commands
 

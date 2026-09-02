@@ -3,11 +3,24 @@ import 'dart:io';
 
 import 'package:cli_table/cli_table.dart';
 import 'package:sah/src/config.dart';
+import 'package:sah/src/host_row.dart';
 import 'package:sah/src/style.dart';
+import 'package:sah/src/table.dart';
+import 'package:sah/src/table_schemas.dart';
 
 /// Shared stdout helpers: `--json` vs human-readable tables / lists.
-class SahOutput(final SahConfig config, {SahStyle? style}) {
+class SahOutput(
+  final SahConfig config, {
+  SahStyle? style,
+  final List<String> sortBy = const [],
+  final List<String>? fields,
+  final bool truncate = true,
+
+  /// Override for tests; defaults to stdout terminal columns when a TTY.
+  int? terminalWidth,
+}) {
   final SahStyle style = style ?? SahStyle();
+  final int? resolvedTerminalWidth = terminalWidth ?? _detectTerminalWidth();
 
   /// Compact, borderless table chars (space-separated columns only).
   static const _chars = TableChars(
@@ -27,6 +40,8 @@ class SahOutput(final SahConfig config, {SahStyle? style}) {
     rightMid: '',
     middle: '  ',
   );
+
+  static const _paddingPerColumn = 1;
 
   TableStyle get _tableStyle => TableStyle(
     border: const <String>[],
@@ -49,6 +64,127 @@ class SahOutput(final SahConfig config, {SahStyle? style}) {
       json(data);
     } else {
       pretty();
+    }
+  }
+
+  /// Tabular command output with shared `--sort-by` / `--fields` handling.
+  ///
+  /// Without transforms, `--json` prints [rawJson] (API shape) when given.
+  /// With `--sort-by` only, JSON is the sorted row list. With `--fields`,
+  /// JSON is a projection keyed by column id (after sort).
+  void emitRows({
+    required List<SahTableColumn> columns,
+    required List<Map<String, dynamic>> rows,
+    Object? rawJson,
+    String? title,
+  }) {
+    final visible = columns.selectFields(fields);
+    final ordered = rows.sortedByColumns(columns.sortKeys(sortBy));
+
+    if (config.jsonOutput) {
+      if (fields != null) {
+        json(ordered.projectColumns(visible));
+      } else if (sortBy.isNotEmpty) {
+        json(ordered);
+      } else {
+        json(rawJson ?? rows);
+      }
+      return;
+    }
+
+    _printRows(visible, ordered, title: title);
+  }
+
+  void _printRows(
+    List<SahTableColumn> columns,
+    List<Map<String, dynamic>> rows, {
+    String? title,
+  }) {
+    if (title != null) {
+      stdout.writeln(style.title(title));
+    }
+    if (rows.isEmpty) {
+      stdout.writeln(style.muted('(no rows)'));
+      return;
+    }
+
+    final plainMatrix = [
+      for (final row in rows)
+        [
+          for (final col in columns) _plainCell(col, row),
+        ],
+    ];
+
+    var visibleColumns = columns;
+    List<int>? contentWidths;
+    final widthBudget = resolvedTerminalWidth;
+    if (truncate && widthBudget != null && widthBudget > 0) {
+      final fit = fitTableToWidth(
+        columns: columns,
+        cellText: plainMatrix,
+        terminalWidth: widthBudget,
+      );
+      visibleColumns = fit.columns;
+      contentWidths = fit.contentWidths;
+    }
+
+    final columnWidths = contentWidths == null
+        ? null
+        : [
+            for (final w in contentWidths) w + _paddingPerColumn,
+          ];
+
+    final table = Table(
+      header: [for (final c in visibleColumns) c.id],
+      style: _tableStyle,
+      tableChars: _chars,
+      columnWidths: columnWidths,
+      truncateChar: '…',
+    );
+    for (var r = 0; r < rows.length; r++) {
+      final row = rows[r];
+      table.add([
+        for (var c = 0; c < visibleColumns.length; c++)
+          _styledCell(
+            visibleColumns[c],
+            row,
+            maxContent: contentWidths?[c],
+          ),
+      ]);
+    }
+    stdout.writeln(table);
+  }
+
+  String _plainCell(SahTableColumn col, Map<String, dynamic> row) {
+    final raw = col.value(row);
+    if (col.format != null) {
+      // Measure with color off so ANSI does not inflate fit budgets.
+      return col.format!(raw, SahStyle(color: false));
+    }
+    return _cell(raw);
+  }
+
+  String _styledCell(
+    SahTableColumn col,
+    Map<String, dynamic> row, {
+    int? maxContent,
+  }) {
+    final raw = col.value(row);
+    final formatted = col.format?.call(raw, style) ?? _cell(raw);
+    if (maxContent == null) {
+      return formatted;
+    }
+    return truncateVisible(formatted, maxContent);
+  }
+
+  static int? _detectTerminalWidth() {
+    if (!stdout.hasTerminal) {
+      return null;
+    }
+    try {
+      return stdout.terminalColumns;
+    } on StdoutException {
+      return null;
     }
   }
 
@@ -235,72 +371,30 @@ class SahOutput(final SahConfig config, {SahStyle? style}) {
 
   void devices(Object? status) {
     final list = flattenDevices(status);
-    rows(
-      const ['Active', 'Reserved', 'Name', 'IP', 'MAC', 'Type', 'Interface'],
-      [
-        for (final d in list)
-          [
-            style.yesNo(d['Active']),
-            style.reserved(_deviceReserved(d)),
-            style.name('${d['Name'] ?? ''}'),
-            style.ip(bestIpv4(d)),
-            style.mac('${d['PhysAddress'] ?? d['Key'] ?? ''}'),
-            style.muted('${d['DeviceType'] ?? ''}'),
-            style.muted('${d['InterfaceName'] ?? d['Layer2Interface'] ?? ''}'),
-          ],
-      ],
+    emitRows(
+      columns: SahTableSchemas.devices,
+      rows: list,
+      rawJson: status,
       title: list.isEmpty ? null : '${list.length} device(s)',
     );
   }
 
   void dhcpLeases(Object? status, {String title = 'DHCP leases'}) {
     final list = _asObjectList(status);
-    rows(
-      const ['MAC', 'IP', 'Name', 'Active', 'Reserved', 'LeaseRemaining'],
-      [
-        for (final d in list)
-          [
-            style.mac('${d['MACAddress'] ?? d['Chaddr'] ?? ''}'),
-            style.ip('${d['IPAddress'] ?? d['Yiaddr'] ?? ''}'),
-            style.name('${d['FriendlyName'] ?? d['Alias'] ?? ''}'),
-            style.yesNo(d['Active']),
-            style.reserved(d['Reserved']),
-            style.muted('${d['LeaseTimeRemaining'] ?? ''}'),
-          ],
-      ],
+    emitRows(
+      columns: SahTableSchemas.dhcpLeases,
+      rows: list,
+      rawJson: status,
       title: '$title (${list.length})',
     );
   }
 
   void portForwards(Object? status) {
-    final rules = <Map<String, dynamic>>[];
-    if (status is Map) {
-      for (final value in status.values) {
-        final map = _asMap(value);
-        if (map != null) {
-          rules.add(map);
-        }
-      }
-    } else if (status is List) {
-      rules.addAll(_asObjectList(status));
-    }
-    rows(
-      const ['Enable', 'Name', 'Protocol', 'ExtPort', 'DestIP', 'DestPort'],
-      [
-        for (final r in rules)
-          [
-            style.yesNo(r['Enable']),
-            style.name('${r['Description'] ?? r['Id'] ?? r['Name'] ?? ''}'),
-            style.muted('${r['Protocol'] ?? ''}'),
-            '${r['ExternalPort'] ?? r['ExternalPortEndRange'] ?? ''}',
-            style.ip(
-              // NOTE: We ignore line length here because it's hard to break up.
-              // ignore: lines_longer_than_80_chars
-              '${r['DestinationIPAddress'] ?? r['DestinationMACAddress'] ?? ''}',
-            ),
-            '${r['InternalPort'] ?? r['DestinationPort'] ?? ''}',
-          ],
-      ],
+    final rules = _asObjectList(status);
+    emitRows(
+      columns: SahTableSchemas.portForwards,
+      rows: rules,
+      rawJson: status,
       title: rules.isEmpty ? null : '${rules.length} port forward(s)',
     );
   }
@@ -386,7 +480,7 @@ class SahOutput(final SahConfig config, {SahStyle? style}) {
     if (ssid != null && ssid.isNotEmpty) {
       bits.add(style.ssid('ssid=$ssid'));
     }
-    final ip = bestIpv4(node);
+    final ip = hostBestIpv4(node);
     if (ip.isNotEmpty) {
       bits.add(style.ip(ip));
     }
@@ -399,18 +493,6 @@ class SahOutput(final SahConfig config, {SahStyle? style}) {
       bits.add(style.upDown(active));
     }
     return bits.join('  ');
-  }
-
-  static bool _deviceReserved(Map<String, dynamic> device) {
-    final list = device['IPv4Address'];
-    if (list is List) {
-      for (final entry in list) {
-        if (entry is Map && entry['Reserved'] == true) {
-          return true;
-        }
-      }
-    }
-    return false;
   }
 
   static List<Map<String, dynamic>> _asObjectList(Object? status) {
@@ -457,21 +539,8 @@ class SahOutput(final SahConfig config, {SahStyle? style}) {
     return const [];
   }
 
-  static String bestIpv4(Map<String, dynamic> device) {
-    final ip = device['IPAddress']?.toString() ?? '';
-    if (ip.contains('.') && !ip.contains(':')) {
-      return ip;
-    }
-    final list = device['IPv4Address'];
-    if (list is List) {
-      for (final entry in list) {
-        if (entry is Map && entry['Address'] is String) {
-          return entry['Address'] as String;
-        }
-      }
-    }
-    return ip;
-  }
+  /// Prefer dotted IPv4; see [hostBestIpv4].
+  static String bestIpv4(Map<String, dynamic> device) => hostBestIpv4(device);
 
   static Map<String, dynamic>? _asMap(Object? value) {
     if (value is Map<String, dynamic>) {

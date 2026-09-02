@@ -77,8 +77,12 @@ KPN flow used by `sah login`:
 - **Response:** `data.contextID` + `Set-Cookie` (prefer cookie whose name
   contains `sessid=`)
 
-`sah` stores `{host, contextId, cookie}` in `~/.config/sah/session.json`
-(password **not** stored).
+`sah` stores `{host, contextId, cookie}` in `~/.config/sah/session.json`.
+Password is stored separately in `~/.config/sah/credentials.json` (mode
+`0600`) by `sah login` unless `--no-store-password`. Authenticated calls
+re-login once on SoftAtHome `Permission denied` (expired session) or when
+no session is present. Wrong password on `createContext` is HTTP 401.
+`sah logout` clears both files.
 
 ---
 
@@ -282,6 +286,9 @@ Common host fields from `Devices.get`:
 | `Key` / `PhysAddress` | MAC-ish id for `Devices.Device.<Key>` |
 | `Name` / `Names[]` | Display + dhcp/mdns aliases |
 | `Active` | Associated / recently seen |
+| `FirstSeen` | When the gateway first learned the host (ISO UTC) |
+| `LastConnection` | Last association / lease activity (ISO UTC) |
+| `LastChanged` | Last metadata change; often `0001-01-01…` sentinel |
 | `IPAddress` / `IPv4Address[]` | Prefer dotted IPv4; `Reserved` flag |
 | `InterfaceName` / `Layer2Interface` | e.g. `vap5g0priv`, `ETH3` |
 | `DeviceType` | Mobile, Computer, HomePlug, … |

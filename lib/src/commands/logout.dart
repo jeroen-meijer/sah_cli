@@ -1,4 +1,5 @@
 import 'package:args/command_runner.dart';
+import 'package:sah/src/api/sah_credentials.dart';
 import 'package:sah/src/api/sah_session.dart';
 
 class LogoutCommand() extends Command<int> {
@@ -6,14 +7,19 @@ class LogoutCommand() extends Command<int> {
   String get name => 'logout';
 
   @override
-  String get description => 'Delete the saved session file.';
+  String get description =>
+      'Delete the saved session and stored credentials.';
 
   @override
   Future<int> run() async {
     SahSession.clear();
-    // NOTE: We ignore print here once since we don't need fancy output.
+    SahCredentials.clear();
+    // NOTE: plain print; logout has no SahOutput / style wiring.
     // ignore: avoid_print
-    print('Cleared ${SahSession.defaultFile().path}');
+    print(
+      'Cleared ${SahSession.defaultFile().path} and '
+      '${SahCredentials.defaultFile().path}',
+    );
     return 0;
   }
 }

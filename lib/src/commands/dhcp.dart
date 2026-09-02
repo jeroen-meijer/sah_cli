@@ -36,8 +36,9 @@ mixin _DhcpPoolOption on Command<int> {
 
 class DhcpLeasesCommand()
     extends Command<int>
-    with SahCommandContext, _DhcpPoolOption {
+    with SahCommandContext, TableCommandOptions, _DhcpPoolOption {
   this {
+    addTableOptions();
     addPoolOption();
   }
 
@@ -51,15 +52,16 @@ class DhcpLeasesCommand()
   Future<int> run() => withClient((client, config, out) async {
     final result = await client.dhcpLeases(pool: pool);
     final status = result['status'] ?? result;
-    out.emit(status, () => out.dhcpLeases(status));
+    out.dhcpLeases(status);
     return 0;
   });
 }
 
 class DhcpStaticCommand()
     extends Command<int>
-    with SahCommandContext, _DhcpPoolOption {
+    with SahCommandContext, TableCommandOptions, _DhcpPoolOption {
   this {
+    addTableOptions();
     addPoolOption();
   }
 
@@ -73,7 +75,7 @@ class DhcpStaticCommand()
   Future<int> run() => withClient((client, config, out) async {
     final result = await client.dhcpStaticLeases(pool: pool);
     final status = result['status'] ?? result;
-    out.emit(status, () => out.dhcpLeases(status, title: 'Static DHCP leases'));
+    out.dhcpLeases(status, title: 'Static DHCP leases');
     return 0;
   });
 }

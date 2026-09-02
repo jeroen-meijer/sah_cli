@@ -3,9 +3,11 @@ import 'package:test/test.dart';
 
 void main() {
   group('SahException.userMessage', () {
-    test('passes through plain messages', () {
+    test('maps not authenticated', () {
       final e = SahException('Not authenticated. Run `sah login` first.');
-      expect(e.userMessage, 'Not authenticated. Run `sah login` first.');
+      expect(e.userMessage, 'not authenticated');
+      expect(e.tip, 'run `sah login`');
+      expect(e.isAuthFailure, isTrue);
     });
 
     test('SpeedTest object-not-found', () {
@@ -25,12 +27,43 @@ void main() {
       expect(e.userMessage, 'Foo.Bar::get not available on this gateway');
     });
 
-    test('uses API description when present', () {
+    test('Permission denied becomes session expired summary', () {
       final e = SahException(
         'API error for DeviceInfo::get: '
         '[{"error":1,"description":"Permission denied"}]',
+        body: {
+          'errors': [
+            {'error': 1, 'description': 'Permission denied'},
+          ],
+        },
       );
-      expect(e.userMessage, 'Permission denied');
+      expect(e.userMessage, 'session expired or permission denied');
+      expect(
+        e.tip,
+        'run `sah login` (stores a password for auto-relogin)',
+      );
+      expect(e.isAuthFailure, isTrue);
+    });
+
+    test('incorrect password factory', () {
+      final e = SahException.incorrectPassword(statusCode: 401);
+      expect(e.userMessage, 'incorrect password');
+      expect(
+        e.tip,
+        'check --password or SAH_PASSWORD, then run `sah login`',
+      );
+      expect(e.isAuthFailure, isTrue);
+    });
+
+    test('HTTP 401 message maps to incorrect password', () {
+      final e = SahException('HTTP 401', statusCode: 401);
+      expect(e.userMessage, 'incorrect password');
+    });
+
+    test('bare permission denied has no tip', () {
+      final e = SahException('permission denied');
+      expect(e.userMessage, 'permission denied');
+      expect(e.tip, isNull);
     });
   });
 

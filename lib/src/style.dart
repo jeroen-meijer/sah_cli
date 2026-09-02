@@ -33,6 +33,14 @@ class SahStyle({bool? color}) {
 
   String muted(String text) => enabled ? _c.dim(text) : text;
 
+  /// Bold red `error:` label (cargo/clap style).
+  String errorLabel([String text = 'error:']) =>
+      enabled ? _c.bold.red(text) : text;
+
+  /// Cyan `tip:` label (cargo/clap style).
+  String tipLabel([String text = 'tip:']) =>
+      enabled ? _c.cyan(text) : text;
+
   String branch(String text) => enabled ? _c.dim(text) : text;
 
   String ssid(String text) => enabled ? _c.yellow(text) : text;

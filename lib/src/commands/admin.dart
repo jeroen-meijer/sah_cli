@@ -1,7 +1,12 @@
 import 'package:args/command_runner.dart';
 import 'package:sah/src/commands/sah_command.dart';
 
-class PortsCommand() extends Command<int> with SahCommandContext {
+class PortsCommand() extends Command<int>
+    with SahCommandContext, TableCommandOptions {
+  this {
+    addTableOptions();
+  }
+
   @override
   String get name => 'ports';
 
@@ -13,7 +18,7 @@ class PortsCommand() extends Command<int> with SahCommandContext {
   Future<int> run() => withClient((client, config, out) async {
     final result = await client.portForwarding();
     final status = result['status'] ?? result;
-    out.emit(status, () => out.portForwards(status));
+    out.portForwards(status);
     return 0;
   });
 }

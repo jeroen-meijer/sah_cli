@@ -6,6 +6,13 @@ class SahException(
   final int? statusCode,
   final Object? body,
 }) implements Exception {
+  /// Login / createContext failed with HTTP 401 (wrong password on KPN).
+  factory incorrectPassword({int? statusCode, Object? body}) => SahException(
+    'incorrect password',
+    statusCode: statusCode,
+    body: body,
+  );
+
   /// SoftAtHome error `196618` ("Object or parameter not found").
   bool get isObjectNotFound {
     final text = message.toLowerCase();
@@ -30,9 +37,46 @@ class SahException(
     return false;
   }
 
-  /// Text for stderr and error tables (no `SahException:` prefix).
+  /// Session missing/expired or SoftAtHome auth-shaped failure (re-login eligible).
+  bool get isAuthFailure {
+    if (statusCode == 401 || statusCode == 403) {
+      return true;
+    }
+    if (message == 'incorrect password' ||
+        message.toLowerCase().contains('not authenticated')) {
+      return true;
+    }
+    final description = _descriptionFromBodyOrMessage;
+    if (description != null &&
+        description.toLowerCase() == 'permission denied') {
+      return true;
+    }
+    return false;
+  }
+
+  /// Short summary for stderr (no `error:` prefix; the reporter adds that).
   String get userMessage {
+    if (message == 'incorrect password') {
+      return 'incorrect password';
+    }
+    if (message == 'permission denied') {
+      return 'permission denied';
+    }
+
+    if (statusCode == 401 &&
+        (message.startsWith('HTTP ') ||
+            message.toLowerCase().contains('login'))) {
+      return 'incorrect password';
+    }
+
+    if (message.toLowerCase().contains('not authenticated')) {
+      return 'not authenticated';
+    }
+
     if (!message.startsWith('API error for ')) {
+      if (message.startsWith('HTTP 401')) {
+        return 'incorrect password';
+      }
       return message;
     }
 
@@ -51,11 +95,56 @@ class SahException(
     }
 
     final description = _errorDescription(payload);
+    if (description != null &&
+        description.toLowerCase() == 'permission denied') {
+      return 'session expired or permission denied';
+    }
     if (description != null && description.isNotEmpty) {
       return description;
     }
 
     return 'Call failed: $call';
+  }
+
+  /// Optional cargo/clap-style tip line (without `tip:` prefix).
+  String? get tip {
+    final summary = userMessage;
+    return switch (summary) {
+      'incorrect password' =>
+        'check --password or SAH_PASSWORD, then run `sah login`',
+      'session expired or permission denied' =>
+        'run `sah login` (stores a password for auto-relogin)',
+      'not authenticated' => 'run `sah login`',
+      'permission denied' => null,
+      _ => null,
+    };
+  }
+
+  String? get _descriptionFromBodyOrMessage {
+    final map = body;
+    if (map is Map) {
+      final direct = map['description']?.toString();
+      if (direct != null && direct.isNotEmpty) {
+        return direct;
+      }
+      final errors = map['errors'];
+      if (errors is List && errors.isNotEmpty) {
+        final first = errors.first;
+        if (first is Map) {
+          final d = first['description']?.toString();
+          if (d != null && d.isNotEmpty) {
+            return d;
+          }
+        }
+      }
+    }
+    if (message.startsWith('API error for ')) {
+      final colon = message.indexOf(': ');
+      if (colon >= 0) {
+        return _errorDescription(message.substring(colon + 2));
+      }
+    }
+    return null;
   }
 
   static String? _errorDescription(String payload) {

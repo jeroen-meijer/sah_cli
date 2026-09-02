@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:args/command_runner.dart';
 import 'package:sah/src/api/sah_client.dart';
+import 'package:sah/src/api/sah_credentials.dart';
 import 'package:sah/src/api/sah_exception.dart';
 import 'package:sah/src/api/sah_session.dart';
+import 'package:sah/src/cli_error.dart';
 import 'package:sah/src/commands/sah_command.dart';
 
 class LoginCommand() extends Command<int> with SahCommandContext {
@@ -24,6 +26,13 @@ class LoginCommand() extends Command<int> with SahCommandContext {
         'no-save',
         negatable: false,
         help: 'Do not write session to ~/.config/sah/session.json',
+      )
+      ..addFlag(
+        'no-store-password',
+        negatable: false,
+        help:
+            'Do not write password to ~/.config/sah/credentials.json '
+            '(disables auto-relogin).',
       );
   }
 
@@ -40,12 +49,16 @@ class LoginCommand() extends Command<int> with SahCommandContext {
         (argResults!['password'] as String?) ??
         Platform.environment['SAH_PASSWORD'];
     if (password == null || password.isEmpty) {
-      stderr.writeln('Password required via --password or SAH_PASSWORD.');
+      reportCliError(
+        SahException('password required'),
+        tip: 'pass --password or set SAH_PASSWORD',
+      );
       return 64;
     }
 
     final config = readConfig();
     final username = argResults!['username'] as String;
+    final out = outputFor(config);
     final client = SahClient(host: config.host, username: username);
 
     try {
@@ -54,19 +67,29 @@ class LoginCommand() extends Command<int> with SahCommandContext {
         session.save();
         stderr.writeln('Session saved to ${SahSession.defaultFile().path}');
       }
+      if (argResults!['no-store-password'] != true) {
+        SahCredentials(
+          host: config.host,
+          username: username,
+          password: password,
+        ).save();
+        stderr.writeln(
+          'Credentials saved to ${SahCredentials.defaultFile().path}',
+        );
+      }
       final payload = <String, String>{
         'host': session.host,
         'contextId': session.contextId,
         'cookie': session.cookie,
       };
-      outputFor(config).emit(payload, () {
+      out.emit(payload, () {
         stdout
           ..writeln('Logged in to ${session.host}')
           ..writeln('contextId: ${session.contextId}');
       });
       return 0;
     } on SahException catch (e) {
-      stderr.writeln(e.userMessage);
+      reportCliError(e, style: out.style);
       if (config.verbose && e.body != null) {
         stderr.writeln(e.body);
       }

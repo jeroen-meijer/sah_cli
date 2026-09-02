@@ -24,6 +24,12 @@ class SahClient({
   /// SoftAtHome admin username (KPN uses `admin`).
   final String username = 'admin',
 
+  /// Stored / env password for auto-relogin when the session expires.
+  final String? password,
+
+  /// Called after a successful login (including auto-relogin).
+  final void Function(SahSession session)? persistSession,
+
   /// KPN posts every call to this path; Livebox often uses `/ws` or `/sysbus/…`.
   final String wsPath = '/ws/NeMo/Intf/lan:getMIBs',
 }) {
@@ -59,6 +65,13 @@ class SahClient({
       }),
     );
 
+    if (response.statusCode == 401) {
+      throw SahException.incorrectPassword(
+        statusCode: response.statusCode,
+        body: response.body,
+      );
+    }
+
     final decoded = _decodeBody(response);
     final data = decoded['data'];
     if (data is! Map<String, dynamic> || data['contextID'] is! String) {
@@ -88,12 +101,87 @@ class SahClient({
     return session;
   }
 
-  /// Generic SoftAtHome call.
+  /// Generic SoftAtHome call (one auto-relogin + retry when [password] is set).
   Future<Map<String, dynamic>> call({
     required String service,
     required String method,
     Object? parameters,
     bool requireAuth = true,
+  }) async {
+    if (requireAuth && _session == null) {
+      await _ensureSession();
+    }
+
+    try {
+      return await _execute(
+        service: service,
+        method: method,
+        parameters: parameters,
+        requireAuth: requireAuth,
+      );
+    } on SahException catch (e) {
+      if (!requireAuth || !e.isAuthFailure || password == null) {
+        rethrow;
+      }
+      await _relogin();
+      try {
+        return await _execute(
+          service: service,
+          method: method,
+          parameters: parameters,
+          requireAuth: requireAuth,
+        );
+      } on SahException catch (retryError) {
+        if (_isPermissionDenied(retryError)) {
+          throw SahException(
+            'permission denied',
+            statusCode: retryError.statusCode,
+            body: retryError.body,
+          );
+        }
+        rethrow;
+      }
+    }
+  }
+
+  static bool _isPermissionDenied(SahException e) {
+    final d = e.userMessage.toLowerCase();
+    return d == 'permission denied' ||
+        d == 'session expired or permission denied';
+  }
+
+  Future<void> _ensureSession() async {
+    final stored = password;
+    if (stored == null || stored.isEmpty) {
+      throw SahException('Not authenticated. Run `sah login` first.');
+    }
+    await _relogin();
+  }
+
+  Future<void> _relogin() async {
+    final stored = password;
+    if (stored == null || stored.isEmpty) {
+      throw SahException('Not authenticated. Run `sah login` first.');
+    }
+    try {
+      final session = await login(stored);
+      persistSession?.call(session);
+    } on SahException catch (e) {
+      if (e.statusCode == 401 || e.message == 'incorrect password') {
+        throw SahException.incorrectPassword(
+          statusCode: e.statusCode,
+          body: e.body,
+        );
+      }
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> _execute({
+    required String service,
+    required String method,
+    required bool requireAuth,
+    Object? parameters,
   }) async {
     final headers = <String, String>{
       'Content-Type': 'application/x-sah-ws-4-call+json',

@@ -43,6 +43,13 @@ class SahCommandRunner() extends CommandRunner<int> {
         abbr: 'q',
         negatable: false,
         help: 'Suppress progress messages on stderr.',
+      )
+      ..addFlag(
+        'no-color',
+        negatable: false,
+        help:
+            'Disable ANSI colors (also respects the NO_COLOR environment '
+            'variable).',
       );
 
     addCommand(LoginCommand());

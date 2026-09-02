@@ -1,8 +1,10 @@
 import 'package:args/command_runner.dart';
 import 'package:sah/src/commands/sah_command.dart';
 
-class DevicesCommand() extends Command<int> with SahCommandContext {
+class DevicesCommand() extends Command<int>
+    with SahCommandContext, TableCommandOptions {
   this {
+    addTableOptions();
     argParser.addFlag(
       'active',
       abbr: 'a',
@@ -25,7 +27,7 @@ class DevicesCommand() extends Command<int> with SahCommandContext {
             expression: 'not interface and not self and not voice',
           );
     final status = result['status'] ?? result;
-    out.emit(status, () => out.devices(status));
+    out.devices(status);
     return 0;
   });
 }

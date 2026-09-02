@@ -5,6 +5,9 @@
 # Source: pkg/linter/tool/machine/rules.json @ 3.13.1
 # Docs: https://dart.dev/tools/linter-rules
 
+analyzer:
+  errors:
+    avoid_classes_with_only_static_members: ignore
 linter:
   rules:
     always_declare_return_types: true
