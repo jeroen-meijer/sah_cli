@@ -48,6 +48,22 @@ mixin SahCommandContext on Command<int> {
   }
 }
 
+/// Adds `--active` / `-a` for commands that can filter on SoftAtHome `Active`.
+mixin ActiveFlagOption on Command<int> {
+  void addActiveFlag({
+    String help = 'Only include entries with Active==true.',
+  }) {
+    argParser.addFlag(
+      'active',
+      abbr: 'a',
+      negatable: false,
+      help: help,
+    );
+  }
+
+  bool get activeOnly => argResults!['active'] == true;
+}
+
 /// Adds `--sort-by` / `--fields` / `--no-truncate` for table commands.
 mixin TableCommandOptions on SahCommandContext {
   void addTableOptions() {

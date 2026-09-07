@@ -36,10 +36,15 @@ mixin _DhcpPoolOption on Command<int> {
 
 class DhcpLeasesCommand()
     extends Command<int>
-    with SahCommandContext, TableCommandOptions, _DhcpPoolOption {
+    with
+        SahCommandContext,
+        TableCommandOptions,
+        _DhcpPoolOption,
+        ActiveFlagOption {
   this {
     addTableOptions();
     addPoolOption();
+    addActiveFlag(help: 'Only leases with Active==true.');
   }
 
   @override
@@ -52,17 +57,22 @@ class DhcpLeasesCommand()
   Future<int> run() => withClient((client, config, out) async {
     final result = await client.dhcpLeases(pool: pool);
     final status = result['status'] ?? result;
-    out.dhcpLeases(status);
+    out.dhcpLeases(status, activeOnly: activeOnly);
     return 0;
   });
 }
 
 class DhcpStaticCommand()
     extends Command<int>
-    with SahCommandContext, TableCommandOptions, _DhcpPoolOption {
+    with
+        SahCommandContext,
+        TableCommandOptions,
+        _DhcpPoolOption,
+        ActiveFlagOption {
   this {
     addTableOptions();
     addPoolOption();
+    addActiveFlag(help: 'Only reservations with Active==true.');
   }
 
   @override
@@ -75,16 +85,23 @@ class DhcpStaticCommand()
   Future<int> run() => withClient((client, config, out) async {
     final result = await client.dhcpStaticLeases(pool: pool);
     final status = result['status'] ?? result;
-    out.dhcpLeases(status, title: 'Static DHCP leases');
+    out.dhcpLeases(
+      status,
+      title: 'Static DHCP leases',
+      activeOnly: activeOnly,
+    );
     return 0;
   });
 }
 
 class DhcpReserveCommand()
     extends Command<int>
-    with SahCommandContext, _DhcpPoolOption {
+    with SahCommandContext, _DhcpPoolOption, ActiveFlagOption {
   this {
     addPoolOption();
+    addActiveFlag(
+      help: 'When resolving --name, only match active wifi/ethernet hosts.',
+    );
     argParser
       ..addOption(
         'mac',
@@ -131,7 +148,11 @@ class DhcpReserveCommand()
     if (macOpt != null && macOpt.isNotEmpty) {
       mac = macOpt;
     } else {
-      final resolved = await _resolveDevice(client, nameOpt!);
+      final resolved = await _resolveDevice(
+        client,
+        nameOpt!,
+        activeOnly: activeOnly,
+      );
       if (resolved == null) {
         stderr.writeln('No device matched name "$nameOpt".');
         return 1;
@@ -184,9 +205,12 @@ class DhcpReserveCommand()
 
 class DhcpUnreserveCommand()
     extends Command<int>
-    with SahCommandContext, _DhcpPoolOption {
+    with SahCommandContext, _DhcpPoolOption, ActiveFlagOption {
   this {
     addPoolOption();
+    addActiveFlag(
+      help: 'When resolving --name, only match active wifi/ethernet hosts.',
+    );
     argParser
       ..addOption('mac', abbr: 'm', help: 'MAC address to unreserve.')
       ..addOption(
@@ -223,7 +247,11 @@ class DhcpUnreserveCommand()
     if (macOpt != null && macOpt.isNotEmpty) {
       mac = macOpt;
     } else {
-      final resolved = await _resolveDevice(client, nameOpt!);
+      final resolved = await _resolveDevice(
+        client,
+        nameOpt!,
+        activeOnly: activeOnly,
+      );
       if (resolved == null) {
         stderr.writeln('No device matched name "$nameOpt".');
         return 1;
@@ -262,11 +290,10 @@ class DhcpUnreserveCommand()
 
 Future<Map<String, dynamic>?> _resolveDevice(
   SahClient client,
-  String nameQuery,
-) async {
-  final result = await client.devices(
-    expression: 'not interface and not self and not voice',
-  );
+  String nameQuery, {
+  bool activeOnly = false,
+}) async {
+  final result = await client.hosts(activeOnly: activeOnly);
   final all = SahOutput.flattenDevices(result['status'] ?? result);
   final query = DeviceQuery(nameQuery);
   final matched = all.where(query.matches).toList();

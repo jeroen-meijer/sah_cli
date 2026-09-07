@@ -239,6 +239,10 @@ class SahClient({
   Future<Map<String, dynamic>> currentUser() =>
       call(service: 'HTTPService', method: 'getCurrentUser');
 
+  /// Default `Devices.get` expression for non-interface hosts.
+  static const defaultHostExpression =
+      'not interface and not self and not voice';
+
   /// Connected / known hosts (`Devices.get`).
   Future<Map<String, dynamic>> devices({Object? expression, String? flags}) {
     final parameters = <String, dynamic>{};
@@ -254,6 +258,14 @@ class SahClient({
       parameters: parameters.isEmpty ? <String, dynamic>{} : parameters,
     );
   }
+
+  /// Hosts for CLI listing / name resolution.
+  ///
+  /// When [activeOnly] is true, uses the wifi/ethernet Active filter
+  /// ([activeDevices]); otherwise [defaultHostExpression].
+  Future<Map<String, dynamic>> hosts({bool activeOnly = false}) => activeOnly
+      ? activeDevices()
+      : devices(expression: defaultHostExpression);
 
   Future<Map<String, dynamic>> activeDevices() => devices(
     expression: {

@@ -1,5 +1,6 @@
 import 'package:args/command_runner.dart';
 import 'package:sah/src/commands/sah_command.dart';
+import 'package:sah/src/host_row.dart';
 
 class InfoCommand() extends Command<int> with SahCommandContext {
   @override
@@ -33,7 +34,14 @@ class WanCommand() extends Command<int> with SahCommandContext {
   });
 }
 
-class TopologyCommand() extends Command<int> with SahCommandContext {
+class TopologyCommand() extends Command<int>
+    with SahCommandContext, ActiveFlagOption {
+  this {
+    addActiveFlag(
+      help: 'Only show nodes with Active==true (prune inactive hosts).',
+    );
+  }
+
   @override
   String get name => 'topology';
 
@@ -43,7 +51,10 @@ class TopologyCommand() extends Command<int> with SahCommandContext {
   @override
   Future<int> run() => withClient((client, config, out) async {
     final result = await client.topology();
-    final status = result['status'] ?? result;
+    var status = result['status'] ?? result;
+    if (activeOnly) {
+      status = filterActiveTopology(status) ?? status;
+    }
     out.emit(status, () => out.topology(status));
     return 0;
   });

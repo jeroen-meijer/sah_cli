@@ -38,8 +38,7 @@ class SahStyle({bool? color}) {
       enabled ? _c.bold.red(text) : text;
 
   /// Cyan `tip:` label (cargo/clap style).
-  String tipLabel([String text = 'tip:']) =>
-      enabled ? _c.cyan(text) : text;
+  String tipLabel([String text = 'tip:']) => enabled ? _c.cyan(text) : text;
 
   String branch(String text) => enabled ? _c.dim(text) : text;
 
@@ -93,16 +92,23 @@ class SahStyle({bool? color}) {
     _ => '',
   };
 
-  /// SoftAtHome key/value field coloring for known keys.
+  /// SoftAtHome key/value field coloring.
+  ///
+  /// Bools and status-like tokens (true/false, up/down, …) always get
+  /// [status] colors. A few keys add IP / MAC / DNS styling.
   String fieldValue(String keyName, Object? raw) {
     final text = raw?.toString() ?? '';
     if (text.isEmpty) {
-      return enabled ? _c.dim('—') : '';
+      return enabled ? _c.dim('-') : '';
+    }
+    if (raw is bool) {
+      return status(text);
     }
     switch (keyName) {
       case 'ConnectionState':
       case 'LinkState':
       case 'Status':
+      case 'RadioStatus':
       case 'Enable':
       case 'Active':
         return status(text);
@@ -122,7 +128,8 @@ class SahStyle({bool? color}) {
             ? muted(text.isEmpty ? '—' : text)
             : (enabled ? _c.red(text) : text);
       default:
-        return text;
+        // Color true/false / Up / Connected / etc. when the value looks like one.
+        return status(text);
     }
   }
 }

@@ -2,13 +2,10 @@ import 'package:args/command_runner.dart';
 import 'package:sah/src/commands/sah_command.dart';
 
 class DevicesCommand() extends Command<int>
-    with SahCommandContext, TableCommandOptions {
+    with SahCommandContext, TableCommandOptions, ActiveFlagOption {
   this {
     addTableOptions();
-    argParser.addFlag(
-      'active',
-      abbr: 'a',
-      negatable: false,
+    addActiveFlag(
       help: 'Only devices with Active==true (wifi + ethernet).',
     );
   }
@@ -21,11 +18,7 @@ class DevicesCommand() extends Command<int>
 
   @override
   Future<int> run() => withClient((client, config, out) async {
-    final result = argResults!['active'] == true
-        ? await client.activeDevices()
-        : await client.devices(
-            expression: 'not interface and not self and not voice',
-          );
+    final result = await client.hosts(activeOnly: activeOnly);
     final status = result['status'] ?? result;
     out.devices(status);
     return 0;

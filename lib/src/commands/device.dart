@@ -17,8 +17,12 @@ class DeviceCommand() extends Command<int> {
   String get description => 'Device management commands.';
 }
 
-class RenameDeviceCommand() extends Command<int> with SahCommandContext {
+class RenameDeviceCommand() extends Command<int>
+    with SahCommandContext, ActiveFlagOption {
   this {
+    addActiveFlag(
+      help: 'Only match active wifi/ethernet hosts.',
+    );
     argParser.addFlag(
       'apply',
       negatable: false,
@@ -47,9 +51,7 @@ class RenameDeviceCommand() extends Command<int> with SahCommandContext {
     final newName = rest.sublist(1).join(' ').trim();
 
     return withClient((client, config, out) async {
-      final devices = await client.devices(
-        expression: 'not interface and not self and not voice',
-      );
+      final devices = await client.hosts(activeOnly: activeOnly);
       final all = SahOutput.flattenDevices(devices['status'] ?? devices);
       final matched = all.where((d) => DeviceQuery(query).matches(d)).toList();
 

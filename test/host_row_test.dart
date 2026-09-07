@@ -60,4 +60,60 @@ void main() {
       );
     });
   });
+
+  group('whereActive', () {
+    test('keeps only Active==true', () {
+      final rows = whereActive([
+        {'Name': 'a', 'Active': true},
+        {'Name': 'b', 'Active': false},
+        {'Name': 'c'},
+      ]);
+      expect(rows.map((r) => r['Name']), ['a']);
+    });
+  });
+
+  group('filterActiveTopology', () {
+    test('prunes inactive leaves and keeps active branch', () {
+      final pruned = filterActiveTopology({
+        'Name': 'lan',
+        'Active': true,
+        'Children': [
+          {
+            'Name': 'wifi',
+            'Active': true,
+            'Children': [
+              {'Name': 'phone', 'Active': true},
+              {'Name': 'kobo', 'Active': false},
+            ],
+          },
+          {
+            'Name': 'dead-ap',
+            'Active': false,
+            'Children': [
+              {'Name': 'ghost', 'Active': true},
+            ],
+          },
+        ],
+      })!;
+
+      expect(pruned, isA<Map<String, dynamic>>());
+      final root = pruned as Map<String, dynamic>;
+      final wifi = (root['Children'] as List).single as Map<String, dynamic>;
+      expect(wifi['Name'], 'wifi');
+      final kids = wifi['Children']! as List;
+      expect(kids.length, 1);
+      expect((kids.single as Map)['Name'], 'phone');
+    });
+
+    test('filters list roots', () {
+      final pruned = filterActiveTopology([
+        {'Name': 'up', 'Active': true},
+        {'Name': 'down', 'Active': false},
+      ])! as List;
+      expect(
+        pruned.map((n) => (n as Map)['Name']),
+        ['up'],
+      );
+    });
+  });
 }

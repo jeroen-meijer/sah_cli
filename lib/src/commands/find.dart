@@ -5,13 +5,10 @@ import 'package:sah/src/output.dart';
 
 /// Search hosts by name / MAC / IP substring.
 class FindCommand() extends Command<int>
-    with SahCommandContext, TableCommandOptions {
+    with SahCommandContext, TableCommandOptions, ActiveFlagOption {
   this {
     addTableOptions();
-    argParser.addFlag(
-      'active',
-      abbr: 'a',
-      negatable: false,
+    addActiveFlag(
       help: 'Only search currently active wifi/ethernet hosts.',
     );
   }
@@ -35,11 +32,7 @@ class FindCommand() extends Command<int>
     final query = DeviceQuery(rest.join(' '));
 
     return withClient((client, config, out) async {
-      final result = argResults!['active'] == true
-          ? await client.activeDevices()
-          : await client.devices(
-              expression: 'not interface and not self and not voice',
-            );
+      final result = await client.hosts(activeOnly: activeOnly);
       final all = SahOutput.flattenDevices(result['status'] ?? result);
       final matched = all.where(query.matches).toList();
       out.devices(matched);

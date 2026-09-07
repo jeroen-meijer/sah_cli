@@ -24,4 +24,23 @@ void main() {
       expect(style.upDown(null), '');
     });
   });
+
+  group('SahStyle.fieldValue', () {
+    final style = SahStyle(color: false);
+
+    test('colors any bool, not only Enable/Status keys', () {
+      expect(style.fieldValue('KickRoamingStation', true), 'true');
+      expect(style.fieldValue('AP_Mode', false), 'false');
+      expect(style.fieldValue('Enable', true), 'true');
+    });
+
+    test('status-like strings', () {
+      expect(style.fieldValue('RadioStatus', 'Up'), 'Up');
+      expect(style.fieldValue('Name', 'rad2g0'), 'rad2g0');
+    });
+
+    test('empty becomes em dash when color off still empty string path', () {
+      expect(style.fieldValue('HeCapsSupported', ''), '');
+    });
+  });
 }

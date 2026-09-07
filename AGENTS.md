@@ -49,10 +49,10 @@ SoftAtHome call for reserve: `DHCPv4.Server.Pool.default` / `addStaticLease` wit
 | `info` | `DeviceInfo` / `get` | Modem identity |
 | `wan` | `NMC` / `getWANStatus` | Public IP, link |
 | `devices` [`--active`] | `Devices` / `get` | Host table |
-| `find <query>` | `Devices` / `get` | Filtered hosts |
-| `topology` | `Devices.Device.lan` / `topology` | Tree |
-| `dhcp leases` | `DHCPv4.Server.Pool.default` / `getLeases` | Dynamic |
-| `dhcp static` | `…` / `getStaticLeases` | Reservations |
+| `find <query>` [`--active`] | `Devices` / `get` | Filtered hosts |
+| `topology` [`--active`] | `Devices.Device.lan` / `topology` | Tree (prunes inactive) |
+| `dhcp leases` [`--active`] | `DHCPv4.Server.Pool.default` / `getLeases` | Dynamic |
+| `dhcp static` [`--active`] | `…` / `getStaticLeases` | Reservations |
 | `dhcp reserve` | `…` / `addStaticLease` | **Mutates** |
 | `dhcp unreserve` | `…` / `deleteStaticLease` | **Mutates** |
 | `ports` | `Firewall` / `getPortForwarding` | Port forwards |

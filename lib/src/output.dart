@@ -379,12 +379,19 @@ class SahOutput(
     );
   }
 
-  void dhcpLeases(Object? status, {String title = 'DHCP leases'}) {
-    final list = _asObjectList(status);
+  void dhcpLeases(
+    Object? status, {
+    String title = 'DHCP leases',
+    bool activeOnly = false,
+  }) {
+    var list = _asObjectList(status);
+    if (activeOnly) {
+      list = whereActive(list);
+    }
     emitRows(
       columns: SahTableSchemas.dhcpLeases,
       rows: list,
-      rawJson: status,
+      rawJson: activeOnly ? list : status,
       title: '$title (${list.length})',
     );
   }
