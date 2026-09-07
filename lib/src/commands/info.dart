@@ -38,7 +38,8 @@ class TopologyCommand() extends Command<int>
     with SahCommandContext, ActiveFlagOption {
   this {
     addActiveFlag(
-      help: 'Only show nodes with Active==true (prune inactive hosts).',
+      help: 'Hide inactive leaves; keep offline parents that still '
+          'have active children.',
     );
   }
 

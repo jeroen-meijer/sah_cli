@@ -55,10 +55,11 @@ List<Map<String, dynamic>> whereActive(
   Iterable<Map<String, dynamic>> rows,
 ) => [for (final row in rows) if (hostIsActive(row)) row];
 
-/// Prune topology nodes with `Active == false` (and their subtrees).
+/// Prune topology nodes that are inactive and have no live descendants.
 ///
-/// Nodes without an `Active` field are kept. Children lists are rewritten
-/// with only surviving descendants.
+/// Inactive parents are kept when at least one child survives (so an offline
+/// PLC/AP still shows its active clients). Nodes without an `Active` field
+/// are kept. Children lists are rewritten with only surviving descendants.
 Object? filterActiveTopology(Object? status) {
   if (status is List) {
     return [
@@ -73,19 +74,19 @@ Object? filterActiveTopology(Object? status) {
   return filterActiveTopologyNode(root);
 }
 
-/// Single topology node filter; returns `null` when the node is inactive.
+/// Single topology node filter; returns `null` when inactive with no survivors.
 Map<String, dynamic>? filterActiveTopologyNode(Map<String, dynamic> node) {
-  if (node['Active'] == false) {
-    return null;
-  }
   final children = node['Children'];
   if (children is! List) {
-    return node;
+    return node['Active'] == false ? null : node;
   }
   final pruned = <Map<String, dynamic>>[
     for (final child in children)
       if (_asRow(child) case final map?) ?filterActiveTopologyNode(map),
   ];
+  if (node['Active'] == false && pruned.isEmpty) {
+    return null;
+  }
   return {...node, 'Children': pruned};
 }
 

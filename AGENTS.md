@@ -50,7 +50,7 @@ SoftAtHome call for reserve: `DHCPv4.Server.Pool.default` / `addStaticLease` wit
 | `wan` | `NMC` / `getWANStatus` | Public IP, link |
 | `devices` [`--active`] | `Devices` / `get` | Host table |
 | `find <query>` [`--active`] | `Devices` / `get` | Filtered hosts |
-| `topology` [`--active`] | `Devices.Device.lan` / `topology` | Tree (prunes inactive) |
+| `topology` [`--active`] | `Devices.Device.lan` / `topology` | Tree (hides inactive leaves; keeps offline parents with live kids) |
 | `dhcp leases` [`--active`] | `DHCPv4.Server.Pool.default` / `getLeases` | Dynamic |
 | `dhcp static` [`--active`] | `…` / `getStaticLeases` | Reservations |
 | `dhcp reserve` | `…` / `addStaticLease` | **Mutates** |
@@ -154,20 +154,31 @@ Commit body only when it helps (why or caveats).
 
 ### CHANGELOG
 
-If the repo has `CHANGELOG.md`:
+`CHANGELOG.md` always starts with `## Upcoming`. That header must never be
+removed.
 
 ```markdown
-## 0.1.0 - 2026-08-27
+## Upcoming
 
 - feat(scope): imperative summary
-- fix(scope): another change (#123)
+
+## 0.1.0 - 2026-08-27
+
+- feat(scope): shipped item
 ```
 
-- Put the newest release first.
-- Heading: `## {version} - {YYYY-MM-DD}`. Semver, or semver+build if the app uses build numbers (e.g. `0.1.3+11`).
-- Each bullet is a conventional commit line. Use merge or squash titles; add `(#PR)` when it helps.
-- Blank line after the heading, blank line between releases. No `# Changelog` title at the top.
-- Only add bullets for work that actually shipped. Do not invent entries.
+- During development: prepend user-visible changes under `## Upcoming`
+  (newest bullet first). Conventional commit lines. Do this in the same
+  change that ships the work; do not wait for a release.
+- On release: move the Upcoming bullets into a new
+  `## {version} - {YYYY-MM-DD}` section directly under `## Upcoming`, bump
+  `pubspec.yaml`, and leave `## Upcoming` in place (empty or with only
+  post-cut entries). Never delete the Upcoming heading.
+- Released sections: newest version first. Semver, or semver+build if the
+  app uses build numbers (e.g. `0.1.3+11`). Blank line after each heading,
+  blank line between sections. No `# Changelog` title at the top.
+- Only add bullets for work that actually landed. Do not invent entries.
+  Use `(#PR)` when it helps.
 
 ### PR body
 

@@ -1,3 +1,7 @@
+## Upcoming
+
+- fix(topology): keep offline parents under `--active` when they still have active children
+
 ## 0.1.2 - 2026-09-07
 
 - feat(cli): auto-relogin with stored credentials on expired session

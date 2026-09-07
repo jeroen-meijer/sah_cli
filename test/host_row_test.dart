@@ -87,11 +87,9 @@ void main() {
             ],
           },
           {
-            'Name': 'dead-ap',
+            'Name': 'dead-leaf',
             'Active': false,
-            'Children': [
-              {'Name': 'ghost', 'Active': true},
-            ],
+            'Children': <Map<String, dynamic>>[],
           },
         ],
       })!;
@@ -103,6 +101,30 @@ void main() {
       final kids = wifi['Children']! as List;
       expect(kids.length, 1);
       expect((kids.single as Map)['Name'], 'phone');
+    });
+
+    test('keeps inactive parent when a child is active', () {
+      final pruned = filterActiveTopology({
+        'Name': 'lan',
+        'Active': true,
+        'Children': [
+          {
+            'Name': 'tpver',
+            'Active': false,
+            'Children': [
+              {'Name': 'homeplug', 'Active': true},
+              {'Name': 'ghost', 'Active': false},
+            ],
+          },
+        ],
+      })! as Map<String, dynamic>;
+
+      final tpver = (pruned['Children'] as List).single as Map<String, dynamic>;
+      expect(tpver['Name'], 'tpver');
+      expect(tpver['Active'], false);
+      final kids = tpver['Children']! as List;
+      expect(kids.length, 1);
+      expect((kids.single as Map)['Name'], 'homeplug');
     });
 
     test('filters list roots', () {
