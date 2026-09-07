@@ -1,3 +1,12 @@
+## 0.1.2 - 2026-09-07
+
+- feat(cli): auto-relogin with stored credentials on expired session
+- feat(cli): fit tables to terminal width (`--sort-by`, `--fields`, `--no-truncate`)
+- feat(cli): cargo-style error and tip lines
+- feat(cli): add `--active` filters for devices, find, topology, dhcp, and rename
+- feat(cli): color all bool values in key/value output
+- feat(cli): show topology Active as green filled / grey hollow circles
+
 ## 0.1.1 - 2026-08-28
 
 - feat: add speedtest progress bar

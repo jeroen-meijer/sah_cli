@@ -23,6 +23,12 @@ void main() {
       expect(style.upDown(false), SahStyle.down);
       expect(style.upDown(null), '');
     });
+
+    test('activeDot', () {
+      expect(style.activeDot(true), SahStyle.activeFilled);
+      expect(style.activeDot(false), SahStyle.activeEmpty);
+      expect(style.activeDot(null), '');
+    });
   });
 
   group('SahStyle.fieldValue', () {

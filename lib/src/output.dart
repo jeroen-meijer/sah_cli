@@ -482,7 +482,12 @@ class SahOutput(
 
   String _topologyLabel(Map<String, dynamic> node) {
     final name = node['Name']?.toString() ?? node['Key']?.toString() ?? '?';
-    final bits = <String>[style.name(name)];
+    final bits = <String>[];
+    final dot = style.activeDot(node['Active']);
+    if (dot.isNotEmpty) {
+      bits.add(dot);
+    }
+    bits.add(style.name(name));
     final ssid = node['SSID']?.toString();
     if (ssid != null && ssid.isNotEmpty) {
       bits.add(style.ssid('ssid=$ssid'));
@@ -494,10 +499,6 @@ class SahOutput(
     final mac = node['PhysAddress']?.toString();
     if (mac != null && mac.isNotEmpty && mac != name) {
       bits.add(style.mac(mac));
-    }
-    final active = node['Active'];
-    if (active is bool) {
-      bits.add(style.upDown(active));
     }
     return bits.join('  ');
   }

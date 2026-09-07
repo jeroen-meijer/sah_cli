@@ -13,6 +13,12 @@ class SahStyle({bool? color}) {
   static const up = 'up';
   static const down = 'down';
 
+  /// U+25CF BLACK CIRCLE (geometric, not emoji).
+  static const activeFilled = '●';
+
+  /// U+25CB WHITE CIRCLE (geometric, not emoji).
+  static const activeEmpty = '○';
+
   late final Chalk _c = enabled ? chalk : Chalk.instance(level: 0);
 
   String title(String text) => enabled ? _c.bold.white(text) : text;
@@ -89,6 +95,13 @@ class SahStyle({bool? color}) {
   String upDown(Object? value) => switch (value) {
     true => status(up),
     false => status(down),
+    _ => '',
+  };
+
+  /// Green filled / grey hollow circle for topology Active state.
+  String activeDot(Object? value) => switch (value) {
+    true => enabled ? _c.green(activeFilled) : activeFilled,
+    false => enabled ? _c.dim(activeEmpty) : activeEmpty,
     _ => '',
   };
 
