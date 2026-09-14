@@ -1,5 +1,6 @@
 ## Upcoming
 
+- feat(cli): `dhcp reserve <query> [ip]` / `unreserve <query>` (name, MAC, or IP)
 - fix(topology): keep offline parents under `--active` when they still have active children
 
 ## 0.1.2 - 2026-09-07
