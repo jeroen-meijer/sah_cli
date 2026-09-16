@@ -36,10 +36,11 @@ Authenticated calls try the saved session first. On SoftAtHome `Permission denie
 ./run.sh dhcp leases
 ./run.sh dhcp reserve macbook --dry-run              # lock current IPv4
 ./run.sh dhcp reserve macbook 192.168.2.100          # mutates; ask first
+./run.sh dhcp reserve -i --dry-run                   # pick from topology
 ./run.sh dhcp unreserve '02:00:00:00:00:01' --dry-run
 ```
 
-`<query>` matches name, MAC, or IP (like `find`). Optional second arg sets the reserved IPv4; omit it to lock the device’s current address. SoftAtHome call: `DHCPv4.Server.Pool.default` / `addStaticLease` with `{ "MACAddress": "…", "IPAddress": "…" }`.
+`<query>` matches name, MAC, or IP (like `find`). Optional second arg sets the reserved IPv4; omit it to lock the device’s current address. `-i/--interactive` shows the LAN topology (same tree as `topology`) and lets you pick a device with ↑/↓. SoftAtHome call: `DHCPv4.Server.Pool.default` / `addStaticLease` with `{ "MACAddress": "…", "IPAddress": "…" }`.
 
 ## Commands (overview)
 
@@ -53,7 +54,7 @@ Authenticated calls try the saved session first. On SoftAtHome `Permission denie
 | `topology` [`--active`] | `Devices.Device.lan` / `topology` | Tree (hides inactive leaves; keeps offline parents with live kids) |
 | `dhcp leases` [`--active`] | `DHCPv4.Server.Pool.default` / `getLeases` | Dynamic |
 | `dhcp static` [`--active`] | `…` / `getStaticLeases` | Reservations |
-| `dhcp reserve <query> [ip]` | `…` / `addStaticLease` | **Mutates**; omit `[ip]` to lock current |
+| `dhcp reserve <query> [ip]` / `-i` | `…` / `addStaticLease` | **Mutates**; omit `[ip]` to lock current; `-i` topology pick |
 | `dhcp unreserve <query>` | `…` / `deleteStaticLease` | **Mutates** |
 | `ports` | `Firewall` / `getPortForwarding` | Port forwards |
 | `wifi` | `NMC.Wifi` / `get` | Radio status |

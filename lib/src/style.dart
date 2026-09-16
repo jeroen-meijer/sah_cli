@@ -39,6 +39,10 @@ class SahStyle({bool? color}) {
 
   String muted(String text) => enabled ? _c.dim(text) : text;
 
+  /// Emphasize the focused row in an interactive list/tree picker.
+  String selected(String text) =>
+      enabled ? _c.bold.cyan(text) : text;
+
   /// Bold red `error:` label (cargo/clap style).
   String errorLabel([String text = 'error:']) =>
       enabled ? _c.bold.red(text) : text;

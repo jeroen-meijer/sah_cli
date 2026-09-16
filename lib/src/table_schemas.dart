@@ -1,3 +1,4 @@
+import 'package:sah/src/dhcp_leases.dart';
 import 'package:sah/src/host_row.dart';
 import 'package:sah/src/table.dart';
 
@@ -106,7 +107,7 @@ abstract final class SahTableSchemas() {
     SahTableColumn(
       id: 'LeaseRemaining',
       value: (row) => row['LeaseTimeRemaining'],
-      format: (v, s) => s.muted('${v ?? ''}'),
+      format: (v, s) => s.muted(formatLeaseRemaining(v)),
       priority: 80,
     ),
   ];

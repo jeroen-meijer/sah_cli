@@ -3,8 +3,12 @@ import 'dart:io';
 import 'package:args/command_runner.dart';
 import 'package:sah/src/api/sah_client.dart';
 import 'package:sah/src/commands/sah_command.dart';
+import 'package:sah/src/config.dart';
 import 'package:sah/src/device_query.dart';
+import 'package:sah/src/dhcp_leases.dart';
+import 'package:sah/src/host_row.dart';
 import 'package:sah/src/output.dart';
+import 'package:sah/src/topology_picker.dart';
 
 class DhcpCommand() extends Command<int> {
   this {
@@ -83,12 +87,30 @@ class DhcpStaticCommand()
 
   @override
   Future<int> run() => withClient((client, config, out) async {
-    final result = await client.dhcpStaticLeases(pool: pool);
-    final status = result['status'] ?? result;
+    final staticResult = await client.dhcpStaticLeases(pool: pool);
+    final leasesResult = await client.dhcpLeases(pool: pool);
+    final hostsResult = await client.hosts();
+
+    final staticRows = flattenDhcpLeases(
+      staticResult['status'] ?? staticResult,
+    );
+    final dynamicLeases = flattenDhcpLeases(
+      leasesResult['status'] ?? leasesResult,
+    );
+    final hosts = SahOutput.flattenDevices(
+      hostsResult['status'] ?? hostsResult,
+    );
+    final rows = enrichStaticDhcpLeases(
+      staticRows: staticRows,
+      dynamicLeases: dynamicLeases,
+      hosts: hosts,
+    );
+
     out.dhcpLeases(
-      status,
+      staticResult['status'] ?? staticResult,
       title: 'Static DHCP leases',
       activeOnly: activeOnly,
+      rows: rows,
     );
     return 0;
   });
@@ -100,30 +122,90 @@ class DhcpReserveCommand()
   this {
     addPoolOption();
     addActiveFlag(
-      help: 'Only match active wifi/ethernet hosts when resolving <query>.',
+      help: 'Only match active wifi/ethernet hosts when resolving <query>, '
+          'or prune inactive topology leaves with --interactive.',
     );
-    argParser.addFlag(
-      'dry-run',
-      negatable: false,
-      help: 'Print the planned SoftAtHome call; do not mutate the gateway.',
-    );
+    argParser
+      ..addFlag(
+        'interactive',
+        abbr: 'i',
+        negatable: false,
+        help: 'Pick a device from the LAN topology (TTY). '
+            'Do not pass <query> or [ip].',
+      )
+      ..addFlag(
+        'dry-run',
+        negatable: false,
+        help: 'Print the planned SoftAtHome call; do not mutate the gateway.',
+      );
   }
 
   @override
   String get name => 'reserve';
 
   @override
-  String get invocation => 'sah dhcp reserve <query> [ip]';
+  String get invocation =>
+      'sah dhcp reserve (<query> [ip] | --interactive)';
 
   @override
   String get description =>
       'Reserve a static DHCP lease (addStaticLease). Mutates the gateway. '
       '<query> matches name, MAC, or IP (like find). Optional [ip] overrides '
-      "the address to lock; omit to use the device's current IPv4.";
+      "the address to lock; omit to use the device's current IPv4. "
+      'Use -i/--interactive to pick from the topology tree.';
 
   @override
   Future<int> run() {
+    final interactive = argResults!['interactive'] as bool;
     final rest = argResults!.rest;
+    final dryRun = argResults!['dry-run'] as bool;
+
+    if (interactive) {
+      if (rest.isNotEmpty) {
+        usageException(
+          'Do not pass <query> or [ip] with --interactive.',
+        );
+      }
+      return withClient((client, config, out) async {
+        if (config.jsonOutput) {
+          stderr.writeln(
+            '${out.style.errorLabel()} --interactive cannot be used '
+            'with --json\n'
+            '  ${out.style.tipLabel()} drop --json, or pass <query> instead',
+          );
+          return 64;
+        }
+        final topoResult = await client.topology();
+        var status = topoResult['status'] ?? topoResult;
+        if (activeOnly) {
+          status = filterActiveTopology(status) ?? status;
+        }
+        final picked = await pickTopologyDevice(
+          status: status,
+          style: out.style,
+        );
+        if (picked == null) {
+          stderr.writeln('Cancelled.');
+          return 1;
+        }
+        final hostsResult = await client.hosts(activeOnly: activeOnly);
+        final hosts = SahOutput.flattenDevices(
+          hostsResult['status'] ?? hostsResult,
+        );
+        return await _applyReserve(
+          client: client,
+          config: config,
+          out: out,
+          pool: pool,
+          device: picked,
+          ipOverride: null,
+          hosts: hosts,
+          dryRun: dryRun,
+          resolveLabel: 'interactive',
+        );
+      });
+    }
+
     if (rest.isEmpty || rest.length > 2) {
       usageException('Expected: $invocation');
     }
@@ -132,7 +214,6 @@ class DhcpReserveCommand()
     if (ipOverride != null && !DeviceQuery.looksLikeIpv4(ipOverride)) {
       usageException('Optional [ip] must be a dotted IPv4 address.');
     }
-    final dryRun = argResults!['dry-run'] as bool;
 
     return withClient((client, config, out) async {
       final hostsResult = await client.hosts(activeOnly: activeOnly);
@@ -143,89 +224,110 @@ class DhcpReserveCommand()
       if (resolved == null) {
         return 1;
       }
-
-      final mac = DeviceQuery.macOf(resolved);
-      if (mac.isEmpty) {
-        stderr.writeln('Matched device has no MAC/PhysAddress.');
-        return 1;
-      }
-
-      final currentIp = SahOutput.bestIpv4(resolved);
-      final reservedIp = ipOverride ?? currentIp;
-      if (reservedIp.isEmpty) {
-        stderr.writeln(
-          'Device has no IPv4 yet; pass an explicit address: '
-          'sah dhcp reserve $query <ip>',
-        );
-        return 64;
-      }
-
-      if (!config.jsonOutput) {
-        stderr.writeln(
-          'Resolved "$query" → ${resolved['Name']} ($mac) '
-          'current=${currentIp.isEmpty ? "(none)" : currentIp}',
-        );
-      }
-
-      final conflict = await _reservationConflict(
-        client,
+      return await _applyReserve(
+        client: client,
+        config: config,
+        out: out,
         pool: pool,
-        mac: mac,
-        ip: reservedIp,
+        device: resolved,
+        ipOverride: ipOverride,
         hosts: hosts,
+        dryRun: dryRun,
+        resolveLabel: query,
       );
-      if (conflict != null) {
-        if (conflict.alreadyReserved) {
-          out.emit(
-            {
-              'alreadyReserved': true,
-              'MACAddress': mac,
-              'IPAddress': reservedIp,
-            },
-            () {
-              stdout.writeln(
-                'Already reserved: $reservedIp for $mac',
-              );
-            },
-          );
-          return 0;
-        }
-        stderr.writeln(conflict.message);
-        return 1;
-      }
-
-      final params = <String, String>{
-        'MACAddress': mac,
-        'IPAddress': reservedIp,
-      };
-      if (dryRun) {
-        out.emit(
-          {
-            'dryRun': true,
-            'service': pool,
-            'method': 'addStaticLease',
-            'parameters': params,
-          },
-          () {
-            stdout
-              ..writeln('Dry run: would call:')
-              ..writeln('  $pool::addStaticLease $params');
-          },
-        );
-        return 0;
-      }
-
-      final result = await client.dhcpAddStaticLease(
-        macAddress: mac,
-        ipAddress: reservedIp,
-        pool: pool,
-      );
-      out.emit(result, () {
-        stdout.writeln('Reserved $reservedIp for $mac');
-      });
-      return 0;
     });
   }
+}
+
+Future<int> _applyReserve({
+  required SahClient client,
+  required SahConfig config,
+  required SahOutput out,
+  required String pool,
+  required Map<String, dynamic> device,
+  required String? ipOverride,
+  required List<Map<String, dynamic>> hosts,
+  required bool dryRun,
+  required String resolveLabel,
+}) async {
+  final mac = DeviceQuery.macOf(device);
+  if (mac.isEmpty) {
+    stderr.writeln('Matched device has no MAC/PhysAddress.');
+    return 1;
+  }
+
+  final currentIp = SahOutput.bestIpv4(device);
+  final reservedIp = ipOverride ?? currentIp;
+  if (reservedIp.isEmpty) {
+    stderr.writeln(
+      'Device has no IPv4 yet; pass an explicit address: '
+      'sah dhcp reserve $resolveLabel <ip>',
+    );
+    return 64;
+  }
+
+  if (!config.jsonOutput) {
+    stderr.writeln(
+      'Resolved "$resolveLabel" → ${device['Name']} ($mac) '
+      'current=${currentIp.isEmpty ? "(none)" : currentIp}',
+    );
+  }
+
+  final conflict = await _reservationConflict(
+    client,
+    pool: pool,
+    mac: mac,
+    ip: reservedIp,
+    hosts: hosts,
+  );
+  if (conflict != null) {
+    if (conflict.alreadyReserved) {
+      out.emit(
+        {
+          'alreadyReserved': true,
+          'MACAddress': mac,
+          'IPAddress': reservedIp,
+        },
+        () {
+          stdout.writeln('Already reserved: $reservedIp for $mac');
+        },
+      );
+      return 0;
+    }
+    stderr.writeln(conflict.message);
+    return 1;
+  }
+
+  final params = <String, String>{
+    'MACAddress': mac,
+    'IPAddress': reservedIp,
+  };
+  if (dryRun) {
+    out.emit(
+      {
+        'dryRun': true,
+        'service': pool,
+        'method': 'addStaticLease',
+        'parameters': params,
+      },
+      () {
+        stdout
+          ..writeln('Dry run: would call:')
+          ..writeln('  $pool::addStaticLease $params');
+      },
+    );
+    return 0;
+  }
+
+  final result = await client.dhcpAddStaticLease(
+    macAddress: mac,
+    ipAddress: reservedIp,
+    pool: pool,
+  );
+  out.emit(result, () {
+    stdout.writeln('Reserved $reservedIp for $mac');
+  });
+  return 0;
 }
 
 class DhcpUnreserveCommand()

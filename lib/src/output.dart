@@ -3,10 +3,12 @@ import 'dart:io';
 
 import 'package:cli_table/cli_table.dart';
 import 'package:sah/src/config.dart';
+import 'package:sah/src/dhcp_leases.dart';
 import 'package:sah/src/host_row.dart';
 import 'package:sah/src/style.dart';
 import 'package:sah/src/table.dart';
 import 'package:sah/src/table_schemas.dart';
+import 'package:sah/src/topology_tree.dart';
 
 /// Shared stdout helpers: `--json` vs human-readable tables / lists.
 class SahOutput(
@@ -383,15 +385,16 @@ class SahOutput(
     Object? status, {
     String title = 'DHCP leases',
     bool activeOnly = false,
+    List<Map<String, dynamic>>? rows,
   }) {
-    var list = _asObjectList(status);
+    var list = rows ?? flattenDhcpLeases(status);
     if (activeOnly) {
       list = whereActive(list);
     }
     emitRows(
       columns: SahTableSchemas.dhcpLeases,
       rows: list,
-      rawJson: activeOnly ? list : status,
+      rawJson: activeOnly || rows != null ? list : status,
       title: '$title (${list.length})',
     );
   }
@@ -407,26 +410,15 @@ class SahOutput(
   }
 
   void topology(Object? status) {
-    final roots = <Map<String, dynamic>>[];
-    if (status is List) {
-      for (final item in status) {
-        final map = _asMap(item);
-        if (map != null) {
-          roots.add(map);
-        }
-      }
-    } else {
-      final map = _asMap(status);
-      if (map != null) {
-        roots.add(map);
-      }
-    }
-    if (roots.isEmpty) {
+    final lines = flattenTopology(status);
+    if (lines.isEmpty) {
       stdout.writeln(style.muted('(empty topology)'));
       return;
     }
-    for (final root in roots) {
-      _printTopologyNode(root, '', '');
+    for (final line in lines) {
+      stdout.writeln(
+        '${style.branch(line.branchPrefix)}${topologyLabel(line.node, style)}',
+      );
     }
   }
 
@@ -450,57 +442,6 @@ class SahOutput(
       return;
     }
     stdout.writeln(const JsonEncoder.withIndent('  ').convert(result));
-  }
-
-  void _printTopologyNode(
-    Map<String, dynamic> node,
-    String prefix,
-    String childPrefix,
-  ) {
-    stdout.writeln('${style.branch(prefix)}${_topologyLabel(node)}');
-
-    final children = node['Children'];
-    if (children is! List || children.isEmpty) {
-      return;
-    }
-
-    for (var i = 0; i < children.length; i++) {
-      final child = _asMap(children[i]);
-      if (child == null) {
-        continue;
-      }
-      final last = i == children.length - 1;
-      final branch = last ? '└─ ' : '├─ ';
-      final nextChild = last ? '   ' : '│  ';
-      _printTopologyNode(
-        child,
-        '$childPrefix$branch',
-        '$childPrefix$nextChild',
-      );
-    }
-  }
-
-  String _topologyLabel(Map<String, dynamic> node) {
-    final name = node['Name']?.toString() ?? node['Key']?.toString() ?? '?';
-    final bits = <String>[];
-    final dot = style.activeDot(node['Active']);
-    if (dot.isNotEmpty) {
-      bits.add(dot);
-    }
-    bits.add(style.name(name));
-    final ssid = node['SSID']?.toString();
-    if (ssid != null && ssid.isNotEmpty) {
-      bits.add(style.ssid('ssid=$ssid'));
-    }
-    final ip = hostBestIpv4(node);
-    if (ip.isNotEmpty) {
-      bits.add(style.ip(ip));
-    }
-    final mac = node['PhysAddress']?.toString();
-    if (mac != null && mac.isNotEmpty && mac != name) {
-      bits.add(style.mac(mac));
-    }
-    return bits.join('  ');
   }
 
   static List<Map<String, dynamic>> _asObjectList(Object? status) {
