@@ -123,7 +123,7 @@ Future<Map<String, dynamic>?> pickTopologyDevice({
   }
 }
 
-enum _Key { up, down, confirm, cancel, eof, ignore }
+enum _Key() { up, down, confirm, cancel, eof, ignore }
 
 Future<_Key> _readKey(StreamIterator<int> bytes) async {
   final first = await _next(bytes);
