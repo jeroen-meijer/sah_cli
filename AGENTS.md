@@ -155,8 +155,7 @@ Commit body only when it helps (why or caveats).
 
 ### CHANGELOG
 
-`CHANGELOG.md` always starts with `## Upcoming`. That header must never be
-removed.
+`CHANGELOG.md` → `## Upcoming` is the **user-facing draft for the next release**, not a commit diary. That header must never be removed.
 
 ```markdown
 ## Upcoming
@@ -168,18 +167,13 @@ removed.
 - feat(scope): shipped item
 ```
 
-- During development: prepend user-visible changes under `## Upcoming`
-  (newest bullet first). Conventional commit lines. Do this in the same
-  change that ships the work; do not wait for a release.
-- On release: move the Upcoming bullets into a new
-  `## {version} - {YYYY-MM-DD}` section directly under `## Upcoming`, bump
-  `pubspec.yaml`, and leave `## Upcoming` in place (empty or with only
-  post-cut entries). Never delete the Upcoming heading.
-- Released sections: newest version first. Semver, or semver+build if the
-  app uses build numbers (e.g. `0.1.3+11`). Blank line after each heading,
-  blank line between sections. No `# Changelog` title at the top.
-- Only add bullets for work that actually landed. Do not invent entries.
-  Use `(#PR)` when it helps.
+- Write for someone who installs the next version. Conventional commit lines.
+- **Unshipped work:** edit or merge existing Upcoming bullets. Do not add `fix(X)` under a `feat(X)` that never left Upcoming. Collapse iterative polish into one bullet.
+- **After a release:** only then does a later bug fix get its own Upcoming line.
+- Prefer fewer, broader bullets. Skip internal-only churn unless users notice it.
+- On release: move Upcoming bullets into a new `## {version} - {YYYY-MM-DD}` section directly under `## Upcoming`, bump `pubspec.yaml`, and leave `## Upcoming` in place (empty or with only post-cut entries).
+- Released sections: newest version first. Blank line after each heading, blank line between sections. No `# Changelog` title at the top.
+- Only add bullets for work that actually landed. Do not invent entries. Use `(#PR)` when it helps.
 
 ### PR body
 

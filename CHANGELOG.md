@@ -1,10 +1,8 @@
 ## Upcoming
 
-- fix(cli): put topology picker cursor beside the device and highlight the row
-- fix(dhcp): flatten getLeases nest and enrich static rows with name/active
-- feat(cli): interactive topology picker for `dhcp reserve -i`
-- feat(cli): `dhcp reserve <query> [ip]` / `unreserve <query>` (name, MAC, or IP)
-- fix(topology): keep offline parents under `--active` when they still have active children
+- feat(cli): `dhcp reserve` / `unreserve` by name, MAC, or IP, with interactive topology picker (`-i`)
+- fix(topology): keep offline parents under `--active` when they still have active children; picker cursor beside the device
+- fix(dhcp): flatten lease nesting; static rows show name and active
 
 ## 0.1.2 - 2026-09-07
 
