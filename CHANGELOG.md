@@ -1,6 +1,6 @@
 ## Upcoming
 
-- feat(cli): `dhcp reserve` / `unreserve` by name, MAC, or IP, with interactive topology picker (`-i`)
+- feat(cli): `dhcp reserve` / `unreserve` by name, MAC, or IP, with an interactive topology picker (`-i`)
 - fix(topology): keep offline parents under `--active` when they still have active children; picker cursor beside the device
 - fix(dhcp): flatten lease nesting; static rows show name and active
 

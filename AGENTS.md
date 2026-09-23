@@ -171,6 +171,7 @@ Commit body only when it helps (why or caveats).
 - **Unshipped work:** edit or merge existing Upcoming bullets. Do not add `fix(X)` under a `feat(X)` that never left Upcoming. Collapse iterative polish into one bullet.
 - **After a release:** only then does a later bug fix get its own Upcoming line.
 - Prefer fewer, broader bullets. Skip internal-only churn unless users notice it.
+- Run `/humanize` (or match that skill) on every new or edited Upcoming bullet before you commit. Keep conventional prefixes; the rest should read like a short product note, not a session diary.
 - On release: move Upcoming bullets into a new `## {version} - {YYYY-MM-DD}` section directly under `## Upcoming`, bump `pubspec.yaml`, and leave `## Upcoming` in place (empty or with only post-cut entries).
 - Released sections: newest version first. Blank line after each heading, blank line between sections. No `# Changelog` title at the top.
 - Only add bullets for work that actually landed. Do not invent entries. Use `(#PR)` when it helps.
