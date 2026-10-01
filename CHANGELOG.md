@@ -1,5 +1,7 @@
 ## Upcoming
 
+- docs: require every PR to update Upcoming; prefer end-user wording when the change is visible, and write what the UI does instead of soft wrappers
+
 - feat(cli): `dhcp reserve` / `unreserve` by name, MAC, or IP, with an interactive topology picker (`-i`)
 - fix(topology): keep offline parents under `--active` when they still have active children; picker cursor beside the device
 - fix(dhcp): flatten lease nesting; static rows show name and active
